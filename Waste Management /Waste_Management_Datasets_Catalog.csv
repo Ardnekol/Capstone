@@ -1,0 +1,13 @@
+Category,Dataset,Description,Link
+India,Plastic Waste Management Rules Data (India),"State-wise plastic waste generation, recycling, processing statistics.",https://dataful.in/datasets/?q=plastic+waste+generation
+India,E-Waste Collected & Processed (India),"State-wise e-waste generated, collected, processed under EPR rules.",https://dataful.in/datasets/?q=ewaste
+India,Municipal Solid Waste Data (India),"Door-to-door collection %, segregation at source, bins available.",https://data.gov.in/keywords/garbage
+India,Hazardous Waste Generation (India),"Industry-wise, state-wise data on hazardous waste generated/treated.",https://dataful.in/datasets/?q=hazardous+waste
+India,Landfill / Dumpsite Inventory (India),"Number & capacity of dumpsites, status of remediation.",https://dataful.in/datasets/?q=dumpsite
+India,Swachh Bharat Mission – Urban Data,"Waste segregation, collection coverage, composting plants, waste-to-energy plants.",https://swachhbharaturban.gov.in/dashboard/
+Image,Waste Classification Dataset (Kaggle/Mendeley),"Household solid waste images, Organic vs Recyclable.",https://data.mendeley.com/datasets/n3gtgm9jxj/2
+Image,RealWaste (UCI ML Repo),"4,752 images; 9 classes (cardboard, food, glass, metal, paper, plastic, textile, vegetation, misc).",https://archive.ics.uci.edu/dataset/908/realwaste
+Image,WasteNet (Recycleye),"Large-scale dataset, millions of annotated waste images.",https://recycleye.com/wastenet/
+Image,ZeroWaste Dataset,Segmentation dataset in cluttered industrial environments.,https://arxiv.org/abs/2106.02740
+Image,SpectralWaste,Hyperspectral + RGB dataset from sorting facility.,https://arxiv.org/abs/2403.18033
+Image,EWasteNet,8 categories of e-waste items for classification.,https://arxiv.org/abs/2311.12823
