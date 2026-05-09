@@ -1,0 +1,115 @@
+{
+  "model": "CLIP (ViT-B/16)",
+  "trashnet_accuracy": 0.6782746339533043,
+  "realwaste_accuracy": 0.42676767676767674,
+  "trashnet_report": {
+    "cardboard": {
+      "precision": 0.6422182468694096,
+      "recall": 0.890818858560794,
+      "f1-score": 0.7463617463617463,
+      "support": 403.0
+    },
+    "glass": {
+      "precision": 0.7267206477732794,
+      "recall": 0.716566866267465,
+      "f1-score": 0.721608040201005,
+      "support": 501.0
+    },
+    "metal": {
+      "precision": 0.8370044052863436,
+      "recall": 0.4634146341463415,
+      "f1-score": 0.5965463108320251,
+      "support": 410.0
+    },
+    "paper": {
+      "precision": 0.679324894514768,
+      "recall": 0.8131313131313131,
+      "f1-score": 0.7402298850574712,
+      "support": 594.0
+    },
+    "plastic": {
+      "precision": 0.60727969348659,
+      "recall": 0.6576763485477178,
+      "f1-score": 0.6314741035856574,
+      "support": 482.0
+    },
+    "trash": {
+      "precision": 0.42857142857142855,
+      "recall": 0.043795620437956206,
+      "f1-score": 0.07947019867549669,
+      "support": 137.0
+    },
+    "accuracy": 0.6782746339533043,
+    "macro avg": {
+      "precision": 0.6535198860836365,
+      "recall": 0.5975672735152646,
+      "f1-score": 0.5859483807855669,
+      "support": 2527.0
+    },
+    "weighted avg": {
+      "precision": 0.6810506092231026,
+      "recall": 0.6782746339533043,
+      "f1-score": 0.6576366783682569,
+      "support": 2527.0
+    }
+  },
+  "realwaste_report": {
+    "cardboard": {
+      "precision": 0.27671232876712326,
+      "recall": 0.6572668112798264,
+      "f1-score": 0.38946015424164526,
+      "support": 461.0
+    },
+    "glass": {
+      "precision": 0.7700729927007299,
+      "recall": 0.5023809523809524,
+      "f1-score": 0.6080691642651297,
+      "support": 420.0
+    },
+    "metal": {
+      "precision": 0.6166419019316494,
+      "recall": 0.5253164556962026,
+      "f1-score": 0.5673274094326726,
+      "support": 790.0
+    },
+    "paper": {
+      "precision": 0.39147286821705424,
+      "recall": 0.808,
+      "f1-score": 0.5274151436031331,
+      "support": 500.0
+    },
+    "plastic": {
+      "precision": 0.41100917431192663,
+      "recall": 0.7296416938110749,
+      "f1-score": 0.5258215962441315,
+      "support": 921.0
+    },
+    "trash": {
+      "precision": 0.5348837209302325,
+      "recall": 0.013855421686746987,
+      "f1-score": 0.02701115678214915,
+      "support": 1660.0
+    },
+    "accuracy": 0.42676767676767674,
+    "macro avg": {
+      "precision": 0.5001321644764526,
+      "recall": 0.5394102224758005,
+      "f1-score": 0.44085077076147683,
+      "support": 4752.0
+    },
+    "weighted avg": {
+      "precision": 0.5051188980252422,
+      "recall": 0.42676767676767674,
+      "f1-score": 0.3526823686341211,
+      "support": 4752.0
+    }
+  },
+  "text_prompts": [
+    "a photo of cardboard waste",
+    "a photo of glass waste",
+    "a photo of metal waste",
+    "a photo of paper waste",
+    "a photo of plastic waste",
+    "a photo of miscellaneous trash"
+  ]
+}

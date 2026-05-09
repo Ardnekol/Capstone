@@ -1,0 +1,65 @@
+{
+  "description": "Four-regime comparison across Stage 1 task-specific, Stage 1 foundation, Stage 2 zero-shot Florence-2, and Stage 2 fine-tuned Florence-2.",
+  "metrics": {
+    "classification": "accuracy",
+    "detection": "F1 at IoU 0.5 matching",
+    "segmentation": "mIoU"
+  },
+  "rows": [
+    {
+      "dataset_task": "TrashNet classification, in-domain",
+      "metric": "accuracy",
+      "stage1_task_specific": {"model": "ViT-Base", "score": 0.9644},
+      "stage1_foundation": {"model": "CLIP", "score": 0.6783},
+      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": 0.2643},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.8524},
+      "winner": "Stage 1 task-specific"
+    },
+    {
+      "dataset_task": "RealWaste classification, cross-domain",
+      "metric": "accuracy",
+      "stage1_task_specific": {"model": "ViT-Base", "score": 0.3998},
+      "stage1_foundation": {"model": "CLIP", "score": 0.4268},
+      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": 0.3036},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.5668},
+      "winner": "Stage 2 fine-tuned"
+    },
+    {
+      "dataset_task": "TACO detection, in-domain",
+      "metric": "F1",
+      "stage1_task_specific": {"model": "YOLOv8", "score": 0.6410},
+      "stage1_foundation": {"model": "Grounding DINO", "score": 0.2530},
+      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": 0.2453},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.3657},
+      "winner": "Stage 1 task-specific"
+    },
+    {
+      "dataset_task": "Trash-ICRA19 detection, cross-domain",
+      "metric": "F1",
+      "stage1_task_specific": {"model": "YOLOv8", "score": 0.1390},
+      "stage1_foundation": {"model": "Grounding DINO", "score": 0.3720},
+      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": 0.4203},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.5049},
+      "winner": "Stage 2 fine-tuned"
+    },
+    {
+      "dataset_task": "TACO segmentation, in-domain",
+      "metric": "mIoU",
+      "stage1_task_specific": {"model": "DeepLabV3+", "score": 0.4541},
+      "stage1_foundation": {"model": "SAM", "score": 0.0380},
+      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": 0.1773},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.2126},
+      "winner": "Stage 1 task-specific"
+    },
+    {
+      "dataset_task": "DWSD segmentation, cross-domain",
+      "metric": "mIoU",
+      "stage1_task_specific": {"model": "Mask R-CNN", "score": 0.0842},
+      "stage1_foundation": {"model": "SAM", "score": 0.1023},
+      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": null},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": null},
+      "winner": "Stage 1 foundation"
+    }
+  ],
+  "conclusion": "Stage 1 task-specific models win in-domain, while Stage 2 fine-tuned Florence-2 gives the best unified cross-domain classification and detection results."
+}

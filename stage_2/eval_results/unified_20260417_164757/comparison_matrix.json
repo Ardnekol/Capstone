@@ -1,0 +1,40 @@
+{
+  "source_eval_results": "/u/student/2024/cs24mtech11024/Capstone/stage_2/eval_results/unified_20260417_164757/results.json",
+  "rows": [
+    {
+      "task": "Classification (in-domain)",
+      "baseline_model": "ViT-Base",
+      "baseline": "96.44% Accuracy",
+      "unified": "85.24% Accuracy",
+      "delta": "-11.20 pts"
+    },
+    {
+      "task": "Classification (cross-domain)",
+      "baseline_model": "CLIP",
+      "baseline": "42.68% Accuracy",
+      "unified": "56.68% Accuracy",
+      "delta": "+14.00 pts"
+    },
+    {
+      "task": "Detection (in-domain)",
+      "baseline_model": "YOLOv8",
+      "baseline": "64.10% F1",
+      "unified": "36.57% F1",
+      "delta": "-27.53 pts"
+    },
+    {
+      "task": "Detection (cross-domain)",
+      "baseline_model": "Grounding DINO",
+      "baseline": "37.20% F1",
+      "unified": "50.49% F1",
+      "delta": "+13.29 pts"
+    },
+    {
+      "task": "Segmentation (in-domain)",
+      "baseline_model": "DeepLabV3+",
+      "baseline": "0.4541 mIoU",
+      "unified": "0.2126 mIoU",
+      "delta": "-0.2415"
+    }
+  ]
+}

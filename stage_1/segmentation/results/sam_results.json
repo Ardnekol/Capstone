@@ -1,0 +1,26 @@
+{
+  "model": "SAM (ViT-H)",
+  "taco_iou": 0.03801547552521782,
+  "dwsd_iou": 0.10231503582346534,
+  "taco_metrics": {
+    "iou": 0.03801547552521782,
+    "precision": 0.04101406591209881,
+    "recall": 0.34209114866508894,
+    "f1": 0.07324645233440792
+  },
+  "dwsd_metrics": {
+    "iou": 0.10231503582346534,
+    "precision": 0.12966618502739677,
+    "recall": 0.3266240789253359,
+    "f1": 0.18563665104510282
+  },
+  "config": {
+    "model_name": "sam",
+    "sam_checkpoint": "sam_vit_h_4b8939.pth",
+    "model_type": "vit_h",
+    "img_size": [
+      256,
+      256
+    ]
+  }
+}

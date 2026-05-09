@@ -1,0 +1,901 @@
+{
+  "model_id": "finetuned/florence2_unified_multitask_lora",
+  "timestamp": "20260421_164431",
+  "device": "cuda:0",
+  "max_images": 100,
+  "classification_trashnet": {
+    "dataset": "TrashNet (in-domain)",
+    "total_images": 101,
+    "evaluated": 100,
+    "accuracy": 0.75,
+    "macro_f1": 0.1714,
+    "per_class": {
+      "cardboard": {
+        "precision": 1.0,
+        "recall": 0.75,
+        "f1": 0.8571
+      },
+      "paper": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "plastic": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "trash": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "unknown": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "predictions": [
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "trash"
+      },
+      {
+        "true": "cardboard",
+        "pred": "trash"
+      },
+      {
+        "true": "cardboard",
+        "pred": "trash"
+      },
+      {
+        "true": "cardboard",
+        "pred": "trash"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "trash"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      }
+    ]
+  },
+  "classification_realwaste": {
+    "dataset": "RealWaste (cross-domain)",
+    "total_images": 101,
+    "evaluated": 100,
+    "accuracy": 0.12,
+    "macro_f1": 0.0536,
+    "per_class": {
+      "cardboard": {
+        "precision": 1.0,
+        "recall": 0.12,
+        "f1": 0.2143
+      },
+      "paper": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "plastic": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "unknown": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "predictions": [
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "cardboard"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "paper"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "plastic"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      },
+      {
+        "true": "cardboard",
+        "pred": "unknown"
+      }
+    ]
+  },
+  "detection_taco": {
+    "dataset": "taco_detection",
+    "evaluated": 100,
+    "iou_threshold": 0.5,
+    "precision": 0.3293,
+    "recall": 0.1618,
+    "f1": 0.217,
+    "tp": 55,
+    "fp": 112,
+    "fn": 285
+  },
+  "detection_icra19": {
+    "dataset": "icra19_detection",
+    "evaluated": 100,
+    "iou_threshold": 0.5,
+    "precision": 0.7255,
+    "recall": 0.5606,
+    "f1": 0.6325,
+    "tp": 74,
+    "fp": 28,
+    "fn": 58
+  },
+  "segmentation_taco": {
+    "dataset": "TACO Seg (in-domain)",
+    "evaluated": 100,
+    "mean_iou": 0.2329,
+    "pixel_accuracy": 0.9136
+  }
+}

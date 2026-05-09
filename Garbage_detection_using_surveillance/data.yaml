@@ -1,0 +1,10 @@
+# YOLOv8 CCTV Garbage Detection Dataset
+path: /u/student/2024/cs24mtech11024/Capstone/Garbage_detection_using_surveillance/yolo_data
+
+train: images/train
+val:   images/val
+test:  images/test
+
+nc: 1
+names:
+  0: garbage

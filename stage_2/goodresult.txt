@@ -1,0 +1,59 @@
+
+To get good results from Florence‑2 (especially boxes + masks), you generally need to move beyond pure zero‑shot prompting. The practical options are:
+
+Fine-tune on your domain
+
+Detection: fine-tune with YOLO/COCO-style bounding boxes on your waste images.
+Segmentation: fine-tune with masks (binary/instance). This is the biggest driver of mask quality.
+Classification: fine-tune with class labels (easy, but won’t fix masks/boxes).
+Best: a dataset where the same images have class + box + mask labels so the model learns consistent “waste” concepts.
+Use a hybrid pipeline (best quality, still “foundation-model based”)
+
+Use Florence‑2 only for caption/class suggestion.
+Use GroundingDINO (or OWL‑ViT) for boxes (much stronger localization).
+Use SAM/SAM2 for segmentation given the boxes.
+This is the standard way to get high-quality segmentation without training.
+Improve your “dataset fit”
+
+Your TrashNet images are 224×224 classification crops → fundamentally weak for accurate detection/segmentation.
+For better localization you want higher-res images (TACO / ICRA19 detection images) or avoid resizing down to 224 for the localization tasks.
+Prompting tweaks help only a little
+
+Use specific phrases (“plastic bottle”, “aluminum can”) and crop-from-detection (we added it), but it won’t reach SAM-level quality reliably.
+If your goal is a thesis-quality “unified model” experiment, the cleanest path is:
+
+Fine-tune Florence‑2 on your waste domain (even a small curated set helps), OR
+Present Florence‑2 as the unified interface, but use GroundingDINO + SAM under the hood for strong detection+segmentation baselines.
+Tell me which direction you want:
+
+A) fine-tuning Florence‑2 (needs labels + training script work), or
+B) hybrid Florence‑2 + GroundingDINO + SAM (best results fast, no training).
+
+
+
+
+
+---------------------------------------------------------------
+Florence‑2 “kind of works” here, but it’s not surprising it doesn’t work well on TACO-style trash scenes—especially if you force it to do detection + instance segmentation reliably with only language prompts.
+
+Why Florence‑2 struggles on your data
+
+It’s a generative VLM, not a dedicated detector/segmenter. Boxes/polygons come from text generation + post-processing, not from a detection head trained to optimize IoU/mAP the way YOLO/DETR-style models do.
+Open-vocab detection is phrase-sensitive. Small wording changes (“trash” vs “plastic bottle” vs “litter”) can change outputs a lot. TACO has many object types + clutter, so the model often “describes” rather than tightly localizes.
+Small objects + heavy clutter + occlusion. TACO images often have many tiny items, partial visibility, and overlapping waste. Florence tends to produce either (a) no boxes, (b) one big box, or (c) scattered boxes with weak alignment.
+Segmentation via “referring expression” is a weak supervision signal. The segmentation task is basically “mask what this phrase refers to” without strong instance boundaries. In busy scenes, the phrase can match multiple regions → polygons become incomplete or wrong.
+Label mismatch / ambiguity. Dataset categories are fine-grained (and sometimes subjective). Florence has to map them from language; it may pick a plausible caption label that doesn’t match the dataset taxonomy.
+Resolution + resizing effects. Internally the processor resizes/normalizes images; thin objects (straws, wrappers) lose detail quickly, making accurate polygons hard.
+What I think, given your observation (“improves but very little”)
+
+The fallbacks we added help mainly with “empty outputs” and some missed detections, but they can’t turn Florence into a high-precision detector/segmenter on cluttered scenes.
+With “one model only” as a hard constraint, the ceiling is limited: you can tune prompts, retries, and filtering, but the underlying localization quality won’t match purpose-built models.
+If you want, tell me: are your worst failures mostly (1) wrong boxes, (2) missing boxes, or (3) segmentation masks wrong even when boxes are OK? Based on that, I can suggest the most impactful Florence-only knobs (prompt terms, --det-select, phrase lists, merge mode, beams) without adding any other model.
+
+GPT-5.2 • 1x
+
+
+
+
+Apply SAHI (Slicing Aided Hyper Inference): Use SAHI to slice large TACO images into smaller patches. This helps Florence-2 "see" small pieces of litter more clearly.
+Fine-Tune the Model: Do not rely on zero-shot capabilities. You must fine-tune Florence-2 specifically on the TACO dataset to align its internal vocabulary with TACO's classes.

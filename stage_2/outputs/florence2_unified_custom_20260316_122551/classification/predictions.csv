@@ -1,0 +1,51 @@
+stem,image_path,gt_label,pred_label
+000000,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000000.jpg,,A plastic bottle laying on the ground in front of a fence.
+000001,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000001.jpg,,A plastic bottle laying on the sidewalk next to a yellow line.
+000003,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000003.jpg,,A red cup sitting on the side of a road.
+000004,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000004.jpg,,A can of beer sitting on the ground.
+000005,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000005.jpg,,A bottle on the ground next to a green locker.
+000006,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000006.jpg,,A green bottle of beer sitting on a table.
+000007,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000007.jpg,,A can of beans sitting on top of a stove top.
+000008,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000008.jpg,,A piece of cardboard that has been torn off on a table.
+000010,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000010.jpg,,A plastic bottle laying on the ground next to a white tarp.
+000011,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000011.jpg,,A can of soda sitting on the ground in front of a bush.
+000012,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000012.jpg,,A bottle of alcohol laying on the ground in the grass.
+000013,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000013.jpg,,A bottle laying on the ground in the middle of a forest.
+000014,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000014.jpg,,A blue fence in front of a bush with a rock and other items on the ground.
+000015,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000015.jpg,,A blue fence in a yard with a trash bag on the ground.
+000016,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000016.jpg,,A bottle laying on the ground next to a white wall.
+000017,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000017.jpg,,A bottle laying on the ground next to a white wall.
+000019,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000019.jpg,,A can and a plastic bottle laying on the ground.
+000021,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000021.jpg,,A bottle of beer and a bag of chips are behind a chain link fence.
+000022,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000022.jpg,,A bottle of beer laying on the ground in the grass.
+000023,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000023.jpg,,A bunch of trash on the ground in the woods.
+000024,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000024.jpg,,A can of beer sitting on the ground next to a bunch of branches.
+000025,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000025.jpg,,A can of soda sitting on the ground next to a plant.
+000026,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000026.jpg,,A can of soda sitting in the grass.
+000027,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000027.jpg,,A can of soda sitting in the grass.
+000028,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000028.jpg,,A plastic container sitting on the ground surrounded by leaves.
+000029,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000029.jpg,,A can of beer sitting in the ground.
+000030,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000030.jpg,,A can of beer sitting in the middle of a garden.
+000031,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000031.jpg,,A can of soda sitting on the ground.
+000032,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000032.jpg,,A bag of trash sitting on the ground next to a tree trunk.
+000035,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000035.jpg,,A bottle of fairy dish soap next to a bottle of dishwashing liquid.
+000037,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000037.jpg,,Three cans of beans on a marble counter top.
+000038,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000038.jpg,,Three cans of beans on a brown tile floor.
+000040,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000040.jpg,,Two cans of chickpeas sitting on a table.
+000042,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000042.jpg,,Two cans sitting on the floor next to each other.
+000043,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000043.jpg,,A can of beans sitting on a wooden table.
+000045,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000045.jpg,,A shelf with five cans of beans on it.
+000047,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000047.jpg,,A bottle of oil and two cans of beans on a table.
+000048,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000048.jpg,,A refrigerator door with a bottle of wine  milk  almond milk and chocolate milk.
+000049,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000049.jpg,,A hand holding a can of red bull in front of a door.
+000050,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000050.jpg,,A hand holding a can of soda in front of a washing machine.
+000053,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000053.jpg,,A bottle of juice in a refrigerator filled with vegetables.
+000054,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000054.jpg,,A bottle of cream cleaner next to a bottle of toilet cleaner.
+000055,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000055.jpg,,A person holding a can of batiste in their hand.
+000056,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000056.jpg,,A person holding a bottle of Lacura suncare aftersun spray.
+000058,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000058.jpg,,A bottle of shampoo and a bottle of blue liquid.
+000059,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000059.jpg,,A can of sure active dry sitting on a desk.
+000060,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000060.jpg,,A bottle of sure active dry sitting on a desk.
+000061,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000061.jpg,,A person holding a can of sure deodorant in their hand.
+000062,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000062.JPG,,A can of milk and two cans of soda on the ground.
+000064,/u/student/2024/cs24mtech11024/Capstone/datasets/detection/taco/TACO/data/batch_1/000064.JPG,,A white cup sitting on the ground next to a brick wall.

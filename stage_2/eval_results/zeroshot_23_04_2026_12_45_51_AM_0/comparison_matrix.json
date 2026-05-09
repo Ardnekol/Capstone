@@ -1,0 +1,41 @@
+{
+  "source_eval_results": "/u/student/2024/cs24mtech11024/Capstone/stage_2/eval_results/zeroshot_23_04_2026_12_45_51_AM_0/results.json",
+  "model_label": "Florence-2 Zero-Shot",
+  "rows": [
+    {
+      "task": "Classification (in-domain)",
+      "baseline_model": "ViT-Base",
+      "baseline": "96.44% Accuracy",
+      "unified": "26.43% Accuracy",
+      "delta": "-70.01 pts"
+    },
+    {
+      "task": "Classification (cross-domain)",
+      "baseline_model": "CLIP",
+      "baseline": "42.68% Accuracy",
+      "unified": "30.36% Accuracy",
+      "delta": "-12.32 pts"
+    },
+    {
+      "task": "Detection (in-domain)",
+      "baseline_model": "YOLOv8",
+      "baseline": "64.10% F1",
+      "unified": "24.53% F1",
+      "delta": "-39.57 pts"
+    },
+    {
+      "task": "Detection (cross-domain)",
+      "baseline_model": "Grounding DINO",
+      "baseline": "37.20% F1",
+      "unified": "42.03% F1",
+      "delta": "+4.83 pts"
+    },
+    {
+      "task": "Segmentation (in-domain)",
+      "baseline_model": "DeepLabV3+",
+      "baseline": "0.4541 mIoU",
+      "unified": "0.1773 mIoU",
+      "delta": "-0.2768"
+    }
+  ]
+}

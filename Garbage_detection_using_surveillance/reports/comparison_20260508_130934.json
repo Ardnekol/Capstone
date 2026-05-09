@@ -1,0 +1,40 @@
+{
+  "timestamp": "20260508_130934",
+  "florence2_zeroshot": {
+    "precision": 0.2159090909090909,
+    "recall": 0.049479166666666664,
+    "f1": 0.0805084745762712,
+    "tp": 57,
+    "fp": 207,
+    "fn": 1095,
+    "model": "microsoft/Florence-2-large",
+    "adapter": null,
+    "split": "test",
+    "evaluated": 382,
+    "tag": "zeroshot"
+  },
+  "florence2_finetuned": {
+    "precision": 0.10872313527180784,
+    "recall": 0.07465277777777778,
+    "f1": 0.0885229027277406,
+    "tp": 86,
+    "fp": 705,
+    "fn": 1066,
+    "model": "microsoft/Florence-2-large",
+    "adapter": "/u/student/2024/cs24mtech11024/Capstone/Garbage_detection_using_surveillance/finetuned/florence2_cctv_garbage_od_lora",
+    "split": "test",
+    "evaluated": 382,
+    "tag": "finetuned"
+  },
+  "yolo_finetuned": {
+    "model": "/u/student/2024/cs24mtech11024/Capstone/Garbage_detection_using_surveillance/runs/detect/cctv_garbage_yolo_v2/weights/best.pt",
+    "split": "test",
+    "conf": 0.15,
+    "iou": 0.5,
+    "mAP@0.5": 0.4244807169496993,
+    "mAP@0.5:0.95": 0.209607841772445,
+    "precision": 0.4805491990846682,
+    "recall": 0.36553524804177545,
+    "f1": 0.41522491349480967
+  }
+}

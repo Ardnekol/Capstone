@@ -1,0 +1,15 @@
+{
+  "images_total": 1500,
+  "images_kept": 1500,
+  "annotations_kept": 4784,
+  "segmentation_parts_kept": 5038,
+  "class_counts": {
+    "cardboard": 120,
+    "glass": 60,
+    "metal": 178,
+    "paper": 101,
+    "plastic": 921,
+    "trash": 120
+  },
+  "output": "/u/student/2024/cs24mtech11024/Capstone/stage_2/finetune_data/taco_tritask_proxy.jsonl"
+}

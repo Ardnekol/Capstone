@@ -1,0 +1,13 @@
+{
+  "precision": 0.2159090909090909,
+  "recall": 0.049479166666666664,
+  "f1": 0.0805084745762712,
+  "tp": 57,
+  "fp": 207,
+  "fn": 1095,
+  "model": "microsoft/Florence-2-large",
+  "adapter": null,
+  "split": "test",
+  "evaluated": 382,
+  "tag": "zeroshot"
+}

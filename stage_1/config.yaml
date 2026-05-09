@@ -1,0 +1,492 @@
+# ============================================================================
+# Experiment Configuration for Foundation Models Study
+# ============================================================================
+
+# General Settings
+general:
+  project_name: "Foundation Models vs Task-Specific Models"
+  random_seeds: [42, 123, 456]  # 3 runs for statistical significance
+  device: "cuda"
+  num_workers: 4
+  output_dir: "results"
+
+# ============================================================================
+# CLASSIFICATION EXPERIMENTS
+# ============================================================================
+
+classification:
+  # Dataset Configuration
+  data:
+    train:
+      name: "TrashNet"
+      path: "datasets/classification/trashnet"
+      split_ratio: [0.8, 0.1, 0.1]  # train, val, test
+    test:
+      name: "RealWaste"
+      path: "datasets/classification/realwaste"
+    
+    classes:
+      num_classes: 6
+      names: ["glass", "paper", "cardboard", "plastic", "metal", "trash"]
+      mapping:
+        glass: "Glass"
+        paper: "Paper"
+        cardboard: "Cardboard"
+        plastic: "Plastic"
+        metal: "Metal"
+        trash: "Miscellaneous Trash"
+    
+    preprocessing:
+      image_size: [224, 224]
+      normalize:
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+    
+    augmentation:
+      train:
+        - RandomHorizontalFlip:
+            p: 0.5
+        - RandomRotation:
+            degrees: 15
+        - ColorJitter:
+            brightness: 0.2
+            contrast: 0.2
+            saturation: 0.2
+        - RandomResizedCrop:
+            size: 224
+            scale: [0.8, 1.0]
+      test:
+        - Resize:
+            size: 256
+        - CenterCrop:
+            size: 224
+
+  # Training Configuration
+  training:
+    batch_size: 32
+    epochs: 100
+    early_stopping_patience: 20
+    
+    optimizer:
+      name: "adamw"
+      params:
+        lr: 1.0e-4
+        weight_decay: 0.01
+        betas: [0.9, 0.999]
+    
+    scheduler:
+      name: "cosine"
+      params:
+        T_max: 100
+        eta_min: 1.0e-6
+    
+    warmup:
+      epochs: 5
+      start_lr: 1.0e-6
+
+  # Models
+  models:
+    # Task-Specific Models
+    resnet50:
+      type: "task_specific"
+      architecture: "resnet50"
+      pretrained: "imagenet"
+      fine_tune_strategy: "full"
+      learning_rate: 1.0e-4
+      
+    efficientnet_b0:
+      type: "task_specific"
+      architecture: "efficientnet_b0"
+      pretrained: "imagenet"
+      fine_tune_strategy: "full"
+      learning_rate: 1.0e-4
+      
+    vit_base:
+      type: "task_specific"
+      architecture: "vit_base_patch16_224"
+      pretrained: "imagenet21k"
+      fine_tune_strategy: "full"
+      learning_rate: 5.0e-5  # Lower LR for transformers
+    
+    # Foundation Models
+    clip:
+      type: "foundation"
+      architecture: "ViT-B/16"
+      pretrained: "openai"
+      fine_tune_strategy: "linear_probe"
+      freeze_backbone: true
+      learning_rate: 1.0e-3  # Higher LR for linear probe
+      
+    dinov2:
+      type: "foundation"
+      architecture: "dinov2_vitb14"
+      pretrained: "facebook"
+      fine_tune_strategy: "linear_probe"
+      freeze_backbone: true
+      learning_rate: 1.0e-3
+      
+    clip_zeroshot:
+      type: "foundation"
+      architecture: "ViT-B/16"
+      pretrained: "openai"
+      fine_tune_strategy: "zero_shot"
+      prompts:
+        template: "a photo of {class_name} waste"
+        class_prompts:
+          glass: ["a photo of glass waste", "a glass bottle", "broken glass"]
+          paper: ["a photo of paper waste", "crumpled paper", "newspaper"]
+          cardboard: ["a photo of cardboard waste", "cardboard box"]
+          plastic: ["a photo of plastic waste", "plastic bottle", "plastic bag"]
+          metal: ["a photo of metal waste", "aluminum can", "metal scrap"]
+          trash: ["a photo of trash", "general waste", "garbage"]
+
+  # Evaluation
+  evaluation:
+    metrics:
+      - top1_accuracy
+      - top5_accuracy
+      - per_class_accuracy
+      - macro_f1
+      - confusion_matrix
+    
+    cross_domain:
+      enabled: true
+      source: "TrashNet"
+      target: "RealWaste"
+
+# ============================================================================
+# DETECTION EXPERIMENTS
+# ============================================================================
+
+detection:
+  # Dataset Configuration
+  data:
+    train:
+      name: "TACO"
+      path: "datasets/detection/taco"
+      annotation_format: "coco"
+    test:
+      name: "Trash-ICRA19"
+      path: "datasets/detection/trash_icra19"
+      annotation_format: "coco"
+    
+    classes:
+      num_classes: 10
+      names: ["plastic", "paper", "glass", "metal", "organic", "textile", "rubber", "wood", "ceramic", "other"]
+      
+      # TACO to unified class mapping
+      taco_mapping:
+        # Super categories
+        "Plastic bag & wrapper": "plastic"
+        "Bottle": "plastic"
+        "Bottle cap": "plastic"
+        "Can": "metal"
+        "Carton": "paper"
+        "Cup": "paper"
+        "Lid": "plastic"
+        "Straw": "plastic"
+        "Cigarette": "other"
+        "Food wrapper": "plastic"
+        
+      # Trash-ICRA19 mapping
+      icra_mapping:
+        "trash": "other"
+        "bio": "organic"
+        "rov": null  # Ignore ROV class
+
+    preprocessing:
+      image_size: [640, 640]
+      normalize:
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+
+    augmentation:
+      train:
+        - Mosaic:
+            p: 0.5
+        - RandomHorizontalFlip:
+            p: 0.5
+        - RandomScale:
+            scale: [0.5, 1.5]
+        - RandomCrop:
+            size: 640
+        - ColorJitter:
+            brightness: 0.4
+            contrast: 0.4
+
+  # Training Configuration
+  training:
+    batch_size: 16
+    epochs: 50
+    
+    optimizer:
+      name: "sgd"
+      params:
+        lr: 0.01
+        momentum: 0.937
+        weight_decay: 0.0005
+        nesterov: true
+    
+    scheduler:
+      name: "cosine"
+      params:
+        T_max: 50
+        eta_min: 0.0001
+    
+    warmup:
+      epochs: 3
+      momentum: 0.8
+
+  # Models
+  models:
+    yolov8m:
+      type: "task_specific"
+      architecture: "yolov8m"
+      pretrained: "coco"
+      fine_tune_strategy: "full"
+      config:
+        img_size: 640
+        conf_threshold: 0.25
+        iou_threshold: 0.7
+        
+    faster_rcnn:
+      type: "task_specific"
+      architecture: "fasterrcnn_resnet50_fpn_v2"
+      pretrained: "coco"
+      fine_tune_strategy: "full"
+      config:
+        rpn_anchor_sizes: [[32], [64], [128], [256], [512]]
+        rpn_aspect_ratios: [[0.5, 1.0, 2.0]]
+        
+    retinanet:
+      type: "task_specific"
+      architecture: "retinanet_resnet50_fpn_v2"
+      pretrained: "coco"
+      fine_tune_strategy: "full"
+      
+    grounding_dino:
+      type: "foundation"
+      architecture: "groundingdino_swin_t"
+      pretrained: "gdino"
+      fine_tune_strategy: "zero_shot"
+      config:
+        box_threshold: 0.35
+        text_threshold: 0.25
+        prompts:
+          - "plastic bottle"
+          - "paper cup"
+          - "metal can"
+          - "trash bag"
+          - "food wrapper"
+          - "cardboard box"
+          - "glass bottle"
+          
+    florence2:
+      type: "foundation"
+      architecture: "Florence-2-large"
+      pretrained: "microsoft"
+      fine_tune_strategy: "zero_shot"
+      config:
+        task: "<OD>"  # Object Detection task
+
+  # Evaluation
+  evaluation:
+    metrics:
+      - mAP@0.5
+      - mAP@0.5:0.95
+      - mAP@0.75
+      - per_class_ap
+      - precision
+      - recall
+    
+    iou_thresholds: [0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95]
+
+# ============================================================================
+# SEGMENTATION EXPERIMENTS
+# ============================================================================
+
+segmentation:
+  # Dataset Configuration
+  data:
+    train:
+      name: "TACO"
+      path: "datasets/segmentation/taco_masks"
+      annotation_format: "coco"
+    test:
+      name: "BePLi"
+      path: "datasets/segmentation/bepli"
+      annotation_format: "masks"
+    
+    classes:
+      num_classes: 4
+      names: ["background", "plastic", "metal", "organic"]
+      
+      # BePLi class mapping
+      bepli_mapping:
+        0: "background"
+        1: "plastic"  # Macroplastic
+        2: "plastic"  # Mesoplastic
+        3: "organic"  # Organic debris
+
+    preprocessing:
+      image_size: [512, 512]
+      normalize:
+        mean: [0.485, 0.456, 0.406]
+        std: [0.229, 0.224, 0.225]
+
+    augmentation:
+      train:
+        - RandomHorizontalFlip:
+            p: 0.5
+        - RandomVerticalFlip:
+            p: 0.5
+        - RandomRotation:
+            degrees: 90
+        - RandomResizedCrop:
+            size: 512
+            scale: [0.5, 2.0]
+        - PhotometricDistortion:
+            brightness: 0.2
+            contrast: 0.2
+            saturation: 0.2
+
+  # Training Configuration
+  training:
+    batch_size: 8
+    epochs: 100
+    
+    optimizer:
+      name: "adamw"
+      params:
+        lr: 1.0e-4
+        weight_decay: 0.01
+    
+    scheduler:
+      name: "poly"
+      params:
+        power: 0.9
+    
+    loss:
+      name: "cross_entropy"
+      params:
+        ignore_index: 255
+        label_smoothing: 0.1
+
+  # Models
+  models:
+    unet:
+      type: "task_specific"
+      architecture: "unet"
+      encoder: "resnet34"
+      pretrained: "imagenet"
+      fine_tune_strategy: "full"
+      config:
+        encoder_depth: 5
+        decoder_channels: [256, 128, 64, 32, 16]
+        
+    deeplabv3plus:
+      type: "task_specific"
+      architecture: "deeplabv3+"
+      encoder: "resnet101"
+      pretrained: "imagenet"
+      fine_tune_strategy: "full"
+      config:
+        output_stride: 16
+        aspp_dilations: [6, 12, 18]
+        
+    mask_rcnn:
+      type: "task_specific"
+      architecture: "maskrcnn_resnet50_fpn_v2"
+      pretrained: "coco"
+      fine_tune_strategy: "full"
+      
+    sam:
+      type: "foundation"
+      architecture: "sam_vit_h"
+      pretrained: "segment_anything"
+      fine_tune_strategy: "zero_shot"
+      config:
+        model_type: "vit_h"
+        checkpoint: "sam_vit_h_4b8939.pth"
+        points_per_side: 32
+        pred_iou_thresh: 0.88
+        stability_score_thresh: 0.95
+        
+    florence2_seg:
+      type: "foundation"
+      architecture: "Florence-2-large"
+      pretrained: "microsoft"
+      fine_tune_strategy: "zero_shot"
+      config:
+        task: "<REFERRING_EXPRESSION_SEGMENTATION>"
+
+  # Evaluation
+  evaluation:
+    metrics:
+      - mIoU
+      - pixel_accuracy
+      - per_class_iou
+      - dice_score
+      - boundary_f1
+      - frequency_weighted_iou
+
+# ============================================================================
+# GENERALIZATION ANALYSIS
+# ============================================================================
+
+analysis:
+  # Cross-domain evaluation
+  cross_domain:
+    classification:
+      source: "TrashNet"
+      target: "RealWaste"
+    detection:
+      source: "TACO"
+      target: "Trash-ICRA19"
+    segmentation:
+      source: "TACO"
+      target: "BePLi"
+  
+  # Metrics to report
+  generalization_metrics:
+    - absolute_drop
+    - relative_drop_percent
+    - retention_ratio
+  
+  # Statistical tests
+  statistics:
+    test: "paired_t_test"
+    significance_level: 0.05
+    multiple_comparison_correction: "bonferroni"
+  
+  # Visualization
+  visualization:
+    plots:
+      - performance_comparison_bar
+      - generalization_gap_chart
+      - confusion_matrix_heatmap
+      - pr_curves
+      - attention_maps
+    
+    save_format: "pdf"
+    dpi: 300
+
+# ============================================================================
+# COMPUTATIONAL RESOURCES
+# ============================================================================
+
+resources:
+  gpu:
+    type: "nvidia"
+    memory: "24GB"  # Adjust based on available GPU
+    precision: "fp16"  # Use mixed precision for efficiency
+  
+  checkpointing:
+    save_every: 10  # Save every N epochs
+    keep_last: 3    # Keep last N checkpoints
+    save_best: true # Save best model
+  
+  logging:
+    tensorboard: true
+    wandb: false
+    log_every: 100  # Log every N steps

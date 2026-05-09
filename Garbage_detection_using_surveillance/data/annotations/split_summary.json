@@ -1,0 +1,14 @@
+{
+  "train": {
+    "images": 3051,
+    "annotations": 8638
+  },
+  "val": {
+    "images": 381,
+    "annotations": 1158
+  },
+  "test": {
+    "images": 382,
+    "annotations": 1152
+  }
+}

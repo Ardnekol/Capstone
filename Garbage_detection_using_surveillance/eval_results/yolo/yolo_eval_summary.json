@@ -1,0 +1,25 @@
+{
+  "model": "/u/student/2024/cs24mtech11024/Capstone/Garbage_detection_using_surveillance/runs/detect/cctv_garbage_yolo_v42/weights/best.pt",
+  "validation": {
+    "model": "/u/student/2024/cs24mtech11024/Capstone/Garbage_detection_using_surveillance/runs/detect/cctv_garbage_yolo_v42/weights/best.pt",
+    "split": "test",
+    "conf": 0.15,
+    "iou": 0.5,
+    "mAP@0.5": 0.9098668445967452,
+    "mAP@0.5:0.95": 0.7265705910752934,
+    "precision": 0.9250427087560698,
+    "recall": 0.8503046127067014,
+    "f1": 0.8861005085561589
+  },
+  "test": {
+    "model": "/u/student/2024/cs24mtech11024/Capstone/Garbage_detection_using_surveillance/runs/detect/cctv_garbage_yolo_v42/weights/best.pt",
+    "split": "test",
+    "conf": 0.15,
+    "iou": 0.5,
+    "mAP@0.5": 0.9098668445967452,
+    "mAP@0.5:0.95": 0.7265705910752934,
+    "precision": 0.9250427087560698,
+    "recall": 0.8503046127067014,
+    "f1": 0.8861005085561589
+  }
+}

@@ -1,0 +1,170 @@
+[
+  {
+    "threshold": 0.01,
+    "prompts": [
+      "trash",
+      "plastic",
+      "bottle",
+      "can",
+      "waste",
+      "bag"
+    ],
+    "precision": 0.01050420167625874,
+    "recall": 0.029655990474903925
+  },
+  {
+    "threshold": 0.01,
+    "prompts": [
+      "waste",
+      "bottle",
+      "can"
+    ],
+    "precision": 0.00956284152569998,
+    "recall": 0.024911031998919298
+  },
+  {
+    "threshold": 0.01,
+    "prompts": [
+      "garbage",
+      "plastic",
+      "bag"
+    ],
+    "precision": 0.016597510350487538,
+    "recall": 0.014234875427953885
+  },
+  {
+    "threshold": 0.01,
+    "prompts": [
+      "litter",
+      "waste"
+    ],
+    "precision": 0.008106116430321992,
+    "recall": 0.026097271617915453
+  },
+  {
+    "threshold": 0.05,
+    "prompts": [
+      "trash",
+      "plastic",
+      "bottle",
+      "can",
+      "waste",
+      "bag"
+    ],
+    "precision": 0.05839416015770686,
+    "recall": 0.009489916951969256
+  },
+  {
+    "threshold": 0.05,
+    "prompts": [
+      "waste",
+      "bottle",
+      "can"
+    ],
+    "precision": 0.057851239191312076,
+    "recall": 0.0083036773329731
+  },
+  {
+    "threshold": 0.05,
+    "prompts": [
+      "garbage",
+      "plastic",
+      "bag"
+    ],
+    "precision": 0.03846153698224858,
+    "recall": 0.001186239618996157
+  },
+  {
+    "threshold": 0.05,
+    "prompts": [
+      "litter",
+      "waste"
+    ],
+    "precision": 0.01075268805642271,
+    "recall": 0.001186239618996157
+  },
+  {
+    "threshold": 0.1,
+    "prompts": [
+      "trash",
+      "plastic",
+      "bottle",
+      "can",
+      "waste",
+      "bag"
+    ],
+    "precision": 0.1351351314828343,
+    "recall": 0.005931198094980785
+  },
+  {
+    "threshold": 0.1,
+    "prompts": [
+      "waste",
+      "bottle",
+      "can"
+    ],
+    "precision": 0.14285713877551032,
+    "recall": 0.005931198094980785
+  },
+  {
+    "threshold": 0.1,
+    "prompts": [
+      "garbage",
+      "plastic",
+      "bag"
+    ],
+    "precision": 0.0,
+    "recall": 0.0
+  },
+  {
+    "threshold": 0.1,
+    "prompts": [
+      "litter",
+      "waste"
+    ],
+    "precision": 0.0,
+    "recall": 0.0
+  },
+  {
+    "threshold": 0.2,
+    "prompts": [
+      "trash",
+      "plastic",
+      "bottle",
+      "can",
+      "waste",
+      "bag"
+    ],
+    "precision": 0.33333327777778704,
+    "recall": 0.002372479237992314
+  },
+  {
+    "threshold": 0.2,
+    "prompts": [
+      "waste",
+      "bottle",
+      "can"
+    ],
+    "precision": 0.33333327777778704,
+    "recall": 0.002372479237992314
+  },
+  {
+    "threshold": 0.2,
+    "prompts": [
+      "garbage",
+      "plastic",
+      "bag"
+    ],
+    "precision": 0.0,
+    "recall": 0.0
+  },
+  {
+    "threshold": 0.2,
+    "prompts": [
+      "litter",
+      "waste"
+    ],
+    "precision": 0.0,
+    "recall": 0.0
+  }
+]

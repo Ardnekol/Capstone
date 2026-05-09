@@ -1,0 +1,114 @@
+# Waste Classification Pipeline - Step by Step Guide
+
+## Overview
+This guide walks you through running the complete waste classification experiment pipeline, mirroring the detection pipeline structure.
+
+## Prerequisites
+- Python 3.8+
+- CUDA-compatible GPU (recommended)
+- Datasets downloaded to `datasets/classification/`
+
+## Step-by-Step Execution
+
+### 1. Navigate to Classification Directory
+```bash
+cd Capstone/stage_1/classification
+```
+
+### 2. Install Dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### 3. Preprocess Datasets
+```bash
+bash scripts/preprocess.sh
+```
+This will:
+- Resize TrashNet images to 224x224
+- Resize RealWaste images to 224x224
+- Organize images in class folders
+
+### 4. Train Models Individually (Recommended for GPU Memory)
+
+#### Option A: Run One Model at a Time
+```bash
+# Train ResNet-50
+bash run_one_model.sh resnet50
+
+# Train EfficientNet-B0
+bash run_one_model.sh efficientnet
+
+# Evaluate CLIP zero-shot
+bash run_one_model.sh clip
+
+# Generate report
+bash run_one_model.sh report
+```
+
+#### Option B: Run Full Pipeline (Requires More GPU Memory)
+```bash
+# Full pipeline (50 epochs)
+bash quick_start.sh
+
+# Quick test (5 epochs)
+bash quick_start.sh --quick
+```
+
+### 5. Check Results
+All results are saved in the `results/` folder:
+- `resnet50_results.json` - ResNet-50 metrics
+- `efficientnetb0_results.json` - EfficientNet-B0 metrics
+- `clip_results.json` - CLIP zero-shot metrics
+- `COMPARISON_REPORT.md` - Comprehensive comparison report
+- `accuracy_comparison.png` - Accuracy comparison plot
+
+## Model Details
+
+### Task-Specific Models
+- **ResNet-50**: Pretrained on ImageNet, fine-tuned on TrashNet
+- **EfficientNet-B0**: Efficient architecture, fine-tuned on TrashNet
+
+### Foundation Model
+- **CLIP (ViT-B/16)**: Zero-shot evaluation using text prompts
+
+## Datasets
+
+### Training: TrashNet
+- 6 classes: cardboard, glass, metal, paper, plastic, trash
+- ~2,500 images total
+
+### Evaluation: RealWaste
+- 8 classes (mapped to 6): Cardboard, Glass, Metal, Paper, Plastic, etc.
+- ~4,700 images total
+
+## Expected Runtime (on A100 GPU)
+- Preprocessing: ~5 minutes
+- ResNet-50 training: ~30 minutes
+- EfficientNet-B0 training: ~20 minutes
+- CLIP evaluation: ~5 minutes
+- Report generation: ~1 minute
+
+## Troubleshooting
+
+### GPU Memory Issues
+- Reduce batch size: `--batch 16` or `--batch 8`
+- Run models individually using `run_one_model.sh`
+
+### Dataset Path Issues
+- Ensure datasets are in `../../datasets/classification/`
+- Check preprocessing output for path errors
+
+### Missing Dependencies
+- Run `pip install -r requirements.txt`
+- For CLIP: `pip install open_clip_torch`
+
+## Output Structure
+```
+results/
+├── resnet50_results.json
+├── efficientnetb0_results.json
+├── clip_results.json
+├── COMPARISON_REPORT.md
+└── accuracy_comparison.png
+```

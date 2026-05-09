@@ -1,0 +1,66 @@
+{
+  "fasterrcnn": {
+    "in_domain": {
+      "mAP50": 0.19252932820574925,
+      "mAP50-95": 0.13259671902151562,
+      "precision": 0.0024354603019970775,
+      "recall": 0.017793594306049824
+    },
+    "cross_domain": {
+      "mAP50": 0.13596218575593458,
+      "mAP50-95": 0.06836413399637803,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "generalization": {
+      "absolute_drop": 0.05656714244981467,
+      "relative_drop_percent": 29.381052215256982
+    }
+  },
+  "retinanet": {
+    "in_domain": {
+      "mAP50": 0.21034728028212335,
+      "mAP50-95": 0.15140917708034932,
+      "precision": 0.00040581670612106866,
+      "recall": 0.014234875444839857
+    },
+    "cross_domain": {
+      "mAP50": 0.06900037192968611,
+      "mAP50-95": 0.025070222410627497,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    "generalization": {
+      "absolute_drop": 0.14134690835243724,
+      "relative_drop_percent": 67.19692698800718
+    }
+  },
+  "grounding_dino": {
+    "model": "IDEA-Research/grounding-dino-tiny",
+    "prompt": "trash . garbage . litter . waste",
+    "box_threshold": 0.25,
+    "datasets": {
+      "taco": {
+        "mAP50": 0.1526069884189075,
+        "mAP50-95": 0.12690232754727365,
+        "precision": 0.22065313327449249,
+        "recall": 0.29655990510083036,
+        "total_predictions": 1133,
+        "total_gt": 843
+      },
+      "icra19": {
+        "mAP50": 0.4269875491768136,
+        "mAP50-95": 0.22490817332640134,
+        "precision": 0.25571153316818057,
+        "recall": 0.6830882352941177,
+        "total_predictions": 3633,
+        "total_gt": 1360
+      }
+    },
+    "cross_domain": {
+      "taco_map50": 0.1526069884189075,
+      "icra19_map50": 0.4269875491768136,
+      "difference": -0.27438056075790607
+    }
+  }
+}

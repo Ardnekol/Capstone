@@ -1,0 +1,40 @@
+Comparison Regimes (Final Clarification)
+
+1) Stage 1 Fine-Tuned (task-specific)
+- Separate model per task, trained/fine-tuned for that task.
+- Classification: ViT / EfficientNet / ResNet
+- Detection: YOLOv8 / Faster R-CNN / RetinaNet
+- Segmentation: DeepLabV3+ / U-Net / Mask R-CNN
+
+2) Stage 1 Zero-Shot / Foundation
+- Foundation models used without waste-specific fine-tuning.
+- Classification: CLIP
+- Detection: Grounding DINO
+- Segmentation: SAM
+
+3) Stage 2 Zero-Shot (unified model)
+- Single model: microsoft/Florence-2-large-ft
+- No LoRA adapter, no task training on waste data.
+- Same prompts used for all tasks: <CAPTION>, <OD>, <REFERRING_EXPRESSION_SEGMENTATION>
+
+4) Stage 2 Fine-Tuned (unified model)
+- Single model: Florence-2 + LoRA adapter
+- Adapter path: finetuned/florence2_unified_multitask_lora
+- One model handles classification, detection, and segmentation.
+
+Current Insight Summary
+
+- In-domain peak performance is still best with Stage 1 fine-tuned specialists.
+- Cross-domain classification is best with Stage 2 fine-tuned unified model.
+- Cross-domain detection is strongest with Stage 2 Florence (zero-shot and fine-tuned), both above Stage 1 baseline.
+- Segmentation quality from Stage 2 is moderate and below best Stage 1 specialist segmentation.
+
+How to describe in report/slides
+
+Use a 4-regime table:
+- Stage 1 Fine-Tuned
+- Stage 1 Zero-Shot/Foundation
+- Stage 2 Zero-Shot (Florence-2)
+- Stage 2 Fine-Tuned (Florence-2 + LoRA)
+
+Then compare on the same benchmark splits and same metrics.

@@ -1,0 +1,41 @@
+# Large datasets (too big for GitHub)
+datasets/
+
+# Virtual environments
+.venv/
+venv/
+env/
+YOLO/waste_management/.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# macOS
+.DS_Store
+*.DS_Store
+
+# Log files
+*.log
+
+# Compiled binaries
+*.dylib
+*.so
+
+# Large model weights (>100MB - GitHub hard limit)
+stage_1/segmentation/sam_vit_h_4b8939.pth
+stage_1/classification/results/vit_base_best.pth
+stage_1/segmentation/results/deeplabv3plus_best.pth
+stage_1/segmentation/results/maskrcnn_best.pth
+stage_1/detection/runs/
+
+# YOLO training run weights (>100MB per checkpoint)
+Garbage_detection_using_surveillance/runs/
+
+# CCTV surveillance dataset images (3.2GB, too large for GitHub)
+Garbage_detection_using_surveillance/yolo_data/

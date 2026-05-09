@@ -1,0 +1,114 @@
+{
+  "report": "stage2_finetuned_result.md",
+  "source_results": "eval_results/unified_20260417_164757/results.json",
+  "source_matrix": "eval_results/unified_20260417_164757/comparison_matrix.md",
+  "model_id": "finetuned/florence2_unified_multitask_lora",
+  "base_model": "microsoft/Florence-2-large-ft",
+  "regime": "fine-tuned unified LoRA",
+  "timestamp": "20260417_164757",
+  "device": "cuda:0",
+  "max_images": 0,
+  "classification": {
+    "trashnet_in_domain": {
+      "evaluated": 2527,
+      "accuracy": 0.8524,
+      "macro_f1": 0.7008,
+      "per_class": {
+        "cardboard": {"precision": 0.9436, "recall": 0.9132, "f1": 0.9281},
+        "glass": {"precision": 0.9127, "recall": 0.8762, "f1": 0.8941},
+        "metal": {"precision": 0.8608, "recall": 0.8146, "f1": 0.8371},
+        "paper": {"precision": 0.9081, "recall": 0.8822, "f1": 0.8950},
+        "plastic": {"precision": 0.8417, "recall": 0.9046, "f1": 0.8720},
+        "trash": {"precision": 0.6310, "recall": 0.3869, "f1": 0.4796},
+        "unknown": {"precision": 0.0000, "recall": 0.0000, "f1": 0.0000}
+      }
+    },
+    "realwaste_cross_domain": {
+      "evaluated": 3587,
+      "accuracy": 0.5668,
+      "macro_f1": 0.4769,
+      "per_class": {
+        "cardboard": {"precision": 0.9748, "recall": 0.2516, "f1": 0.4000},
+        "glass": {"precision": 0.8676, "recall": 0.7643, "f1": 0.8127},
+        "metal": {"precision": 0.8302, "recall": 0.5076, "f1": 0.6300},
+        "paper": {"precision": 0.6320, "recall": 0.9240, "f1": 0.7506},
+        "plastic": {"precision": 0.6697, "recall": 0.7904, "f1": 0.7251},
+        "trash": {"precision": 0.8333, "recall": 0.0101, "f1": 0.0200},
+        "unknown": {"precision": 0.0000, "recall": 0.0000, "f1": 0.0000}
+      }
+    }
+  },
+  "detection": {
+    "taco_in_domain": {
+      "evaluated": 300,
+      "iou_threshold": 0.5,
+      "tp": 303,
+      "fp": 270,
+      "fn": 781,
+      "precision": 0.5288,
+      "recall": 0.2795,
+      "f1": 0.3657
+    },
+    "icra19_cross_domain": {
+      "evaluated": 1120,
+      "iou_threshold": 0.5,
+      "tp": 673,
+      "fp": 608,
+      "fn": 712,
+      "precision": 0.5254,
+      "recall": 0.4859,
+      "f1": 0.5049
+    }
+  },
+  "segmentation": {
+    "taco_in_domain": {
+      "evaluated": 150,
+      "mean_iou": 0.2126,
+      "pixel_accuracy": 0.9134
+    }
+  },
+  "zero_shot_comparison": {
+    "trashnet_accuracy_delta": 0.5881,
+    "realwaste_accuracy_delta": 0.2632,
+    "taco_detection_f1_delta": 0.1204,
+    "icra19_detection_f1_delta": 0.0846,
+    "taco_segmentation_miou_delta": 0.0353
+  },
+  "stage1_comparison": [
+    {
+      "task": "classification_in_domain",
+      "baseline_model": "ViT-Base",
+      "baseline": "96.44% Accuracy",
+      "fine_tuned_florence2": "85.24% Accuracy",
+      "delta": "-11.20 pts"
+    },
+    {
+      "task": "classification_cross_domain",
+      "baseline_model": "CLIP",
+      "baseline": "42.68% Accuracy",
+      "fine_tuned_florence2": "56.68% Accuracy",
+      "delta": "+14.00 pts"
+    },
+    {
+      "task": "detection_in_domain",
+      "baseline_model": "YOLOv8",
+      "baseline": "64.10% F1",
+      "fine_tuned_florence2": "36.57% F1",
+      "delta": "-27.53 pts"
+    },
+    {
+      "task": "detection_cross_domain",
+      "baseline_model": "Grounding DINO",
+      "baseline": "37.20% F1",
+      "fine_tuned_florence2": "50.49% F1",
+      "delta": "+13.29 pts"
+    },
+    {
+      "task": "segmentation_in_domain",
+      "baseline_model": "DeepLabV3+",
+      "baseline": "0.4541 mIoU",
+      "fine_tuned_florence2": "0.2126 mIoU",
+      "delta": "-0.2415"
+    }
+  ]
+}
