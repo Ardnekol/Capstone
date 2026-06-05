@@ -1,0 +1,18 @@
+{
+  "model_id": "microsoft/Florence-2-large-ft",
+  "timestamp": "20260524_230944",
+  "device": "cuda:0",
+  "max_images": 0,
+  "segmentation_taco": {
+    "dataset": "TACO Seg (in-domain)",
+    "evaluated": 150,
+    "mean_iou": 0.1773,
+    "pixel_accuracy": 0.7902
+  },
+  "segmentation_dwsd": {
+    "dataset": "DWSD (cross-domain)",
+    "evaluated": 144,
+    "mean_iou": 0.1207,
+    "pixel_accuracy": 0.8153
+  }
+}

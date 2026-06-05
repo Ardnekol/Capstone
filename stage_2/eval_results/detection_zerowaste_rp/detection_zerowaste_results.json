@@ -1,0 +1,36 @@
+{
+  "yolov8": {
+    "precision": 0.1789,
+    "recall": 0.2864,
+    "f1": 0.2202,
+    "tp": 1454,
+    "fp": 6673,
+    "fn": 3623,
+    "evaluated": 929,
+    "regime": "task-specific"
+  },
+  "grounding_dino": {
+    "precision": 0.1681,
+    "recall": 0.2744,
+    "f1": 0.2084,
+    "tp": 1393,
+    "fp": 6896,
+    "fn": 3684,
+    "evaluated": 929,
+    "regime": "foundation"
+  },
+  "florence2_ft": {
+    "precision": 0.232,
+    "recall": 0.3272,
+    "f1": 0.2715,
+    "tp": 1661,
+    "fp": 5497,
+    "fn": 3416,
+    "evaluated": 929,
+    "regime": "unified-ft"
+  },
+  "_meta": {
+    "florence_det_method": "region_proposal",
+    "n_images": 929
+  }
+}

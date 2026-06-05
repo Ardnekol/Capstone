@@ -613,7 +613,9 @@ def eval_segmentation(model, processor, images_dir: Path, masks_dir: Path,
         try:
             img = Image.open(img_path).convert("RGB")
             gt_mask = np.array(Image.open(mask_path).convert("L"))
-            gt_binary = (gt_mask > 127).astype(np.uint8)
+            # Treat any non-zero pixel as "object" — handles both TACO (0/255 binary)
+            # and DWSD (0/5/15 multi-class palette) mask encodings.
+            gt_binary = (gt_mask > 0).astype(np.uint8)
         except Exception:
             continue
 

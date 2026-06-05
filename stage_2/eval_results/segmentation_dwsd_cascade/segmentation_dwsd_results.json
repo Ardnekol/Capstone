@@ -1,0 +1,12 @@
+{
+  "florence2_ft": {
+    "mIoU": 0.1799,
+    "pixel_acc": 0.6366,
+    "evaluated": 144,
+    "regime": "unified-ft"
+  },
+  "_meta": {
+    "florence_seg_method": "cascade",
+    "n_pairs": 144
+  }
+}

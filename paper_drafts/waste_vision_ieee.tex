@@ -1,0 +1,494 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{patterns,positioning,arrows.meta}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{AI for Waste Management: A Unified Foundation Model across Classification,
+Detection, and Segmentation}
+
+\author{\IEEEauthorblockN{Lokendra Mandloi}
+\IEEEauthorblockA{\textit{Dept. of Computer Science and Engineering} \\
+\textit{Indian Institute of Technology Hyderabad}\\
+Hyderabad, India \\
+cs24mtech11024@iith.ac.in}
+\and
+\IEEEauthorblockN{Srijith P. K.}
+\IEEEauthorblockA{\textit{Dept. of Computer Science and Engineering} \\
+\textit{Indian Institute of Technology Hyderabad}\\
+Hyderabad, India \\
+srijith@cse.iith.ac.in}
+}
+
+\maketitle
+
+\begin{abstract}
+Computer vision is increasingly used to automate waste sorting, but models are
+typically trained on clean, curated datasets and degrade sharply when deployed in
+the field, where lighting, clutter, and occlusion differ from training data. This
+work studies that lab-to-field gap across three tasks (classification, detection,
+and segmentation) and two model paradigms (task-specific specialists and
+foundation models). We first benchmark specialist and zero-shot foundation models
+under matched in-domain and cross-domain conditions, then fine-tune a single
+vision-language foundation model with low-rank adapters into one unified model
+that performs all three tasks. Across seven cross-domain benchmarks spanning five
+distinct waste domains, the unified model is the best, or statistically tied for
+best, on every benchmark, using one model and a lightweight adapter rather than
+many specialist pipelines. Specialist models retain the highest in-domain
+accuracy but collapse under domain shift (a relative drop of 58 to 80 percent),
+while the unified model trades a small amount of in-domain accuracy for markedly
+more robust transfer. Because one model with a lightweight adapter replaces
+several task-specific pipelines, the approach is also simpler and cheaper to
+deploy in the field.
+\end{abstract}
+
+\begin{IEEEkeywords}
+waste management, domain shift, foundation models, vision-language models,
+low-rank adaptation, cross-domain generalization
+\end{IEEEkeywords}
+
+\section{Introduction}
+Rapid urbanization has increased the volume of solid waste, and efficient sorting
+is central to recycling and resource recovery. Computer vision can automate three
+levels of waste understanding: image-level classification of material type,
+object-level detection of waste items, and pixel-level segmentation of waste
+regions. In practice, however, models trained on curated laboratory datasets
+often fail when deployed in the field, where scenes are cluttered, lighting
+varies, and objects are occluded. High benchmark accuracy therefore does not
+guarantee reliable deployment; this discrepancy is the lab-to-field gap.
+
+Two paradigms address waste vision. Task-specific models are trained for a single
+task on domain-specific data and optimize peak accuracy in controlled conditions.
+Foundation models are pre-trained on large, diverse corpora and can be adapted to
+many tasks, trading some peak accuracy for broader generalization. Deploying a
+separate specialist per task is also operationally costly: it multiplies memory,
+maintenance, and integration overhead.
+
+This paper makes three contributions. First, we benchmark specialist and
+foundation models for classification, detection, and segmentation under matched
+in-domain and cross-domain protocols, quantifying the lab-to-field gap. Second,
+we fine-tune a single vision-language foundation model, Florence-2, with low-rank
+adapters into one unified model that performs all three tasks, evaluated on seven
+cross-domain benchmarks across five domains. Third, we package the unified model
+as an interactive single-model demo that serves classification, detection, and
+segmentation from one inference pipeline, illustrating its deployment advantage
+over a stack of task-specific models.
+
+\section{Related Work}
+\textbf{Task-specific vision models.} Convolutional and transformer classifiers
+such as ResNet \cite{resnet}, EfficientNet \cite{efficientnet}, and the Vision
+Transformer \cite{vit} achieve strong supervised accuracy. Detectors such as
+YOLOv8 \cite{yolov8} and Faster R-CNN \cite{fasterrcnn}, and segmentation models
+such as U-Net \cite{unet}, DeepLabV3+ \cite{deeplab}, and Mask R-CNN
+\cite{maskrcnn}, are similarly accurate in-domain but are known to degrade under
+distribution shift.
+
+\textbf{Foundation models.} CLIP \cite{clip} aligns image and text encoders for
+zero-shot classification; Grounding DINO \cite{gdino} performs open-set,
+text-prompted detection; and the Segment Anything Model (SAM) \cite{sam} produces
+class-agnostic masks from prompts. Florence-2 \cite{florence2} unifies
+captioning, detection, grounding, and segmentation in a single
+encoder-decoder model driven by task prompts. We adapt Florence-2 with LoRA
+\cite{lora} via the PEFT library \cite{peft}, which inserts small trainable
+matrices while freezing the backbone.
+
+\textbf{Waste datasets.} We use TrashNet \cite{trashnet} and TACO \cite{taco} as
+curated training sources, and RealWaste \cite{realwaste}, Trash-ICRA19
+\cite{icra19}, the Dense Waste Segmentation Dataset (DWSD), ZeroWaste-f
+\cite{zerowaste}, and WaRP \cite{warp} as cross-domain test sets. Prior work on
+foundation models for waste classification \cite{babe} motivates studying their
+generalization, which we extend to detection and segmentation and to a single
+unified model.
+
+\section{Methodology}
+Fig.~\ref{fig:pipeline} summarizes our approach: a two-stage study that
+benchmarks specialist and foundation baselines, then unifies all three tasks into
+a single adapted foundation model, all evaluated under matched in-domain and
+cross-domain protocols.
+
+\begin{figure*}[t]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  node distance=8mm and 13mm,
+  box/.style={draw, rounded corners, align=center, minimum height=11mm,
+              text width=24mm, inner sep=3pt},
+  arr/.style={-{Latex[length=2mm]}, thick},
+]
+\node[box, fill=blue!8] (data) {Curated training data\\ TrashNet (cls)\\ TACO (det/seg)};
+\node[box, fill=green!12, right=of data] (flor) {\textbf{Stage 2}\\ Florence-2 + LoRA\\ single unified model};
+\node[box, fill=yellow!18, right=of flor] (tasks) {Task prompts\\ \texttt{<CAPTION>} cls\\ \texttt{<OD>} det\\ referring/cascade seg};
+\node[box, fill=red!8, right=of tasks] (eval) {Evaluation\\ in-domain (curated)\\ + cross-domain\\ (5 field domains)};
+\node[box, fill=gray!15, below=of flor] (s1) {\textbf{Stage 1} baselines\\ specialists + zero-shot\\ foundation models};
+\draw[arr] (data) -- (flor);
+\draw[arr] (flor) -- (tasks);
+\draw[arr] (tasks) -- (eval);
+\draw[arr] (data) |- (s1);
+\draw[arr] (s1) -| (eval);
+\end{tikzpicture}
+\caption{Overview of the study. Stage 1 benchmarks task-specific specialists and
+zero-shot foundation models for each task. Stage 2 fine-tunes one Florence-2
+model with LoRA to perform classification, detection, and segmentation via task
+prompts. All models are evaluated under matched in-domain and cross-domain
+protocols; the cross-domain test sets are never seen during training.}
+\label{fig:pipeline}
+\end{figure*}
+
+\subsection{Problem Formulation}
+For each task we distinguish two evaluation regimes. \emph{In-domain}: train and
+test come from the same dataset and distribution. \emph{Cross-domain}: the model
+is evaluated on a held-out dataset from a different domain, never seen during
+training. The cross-domain regime measures field robustness and is the focus of
+this work.
+
+\subsection{Stage 1: Specialist and Foundation Baselines}
+We train task-specific models on the curated source for each task and evaluate
+them in-domain and cross-domain. For classification we use ViT-Base, ResNet-50,
+and EfficientNet-B0 trained on TrashNet; for detection, YOLOv8m and Faster R-CNN
+trained on TACO; for segmentation, DeepLabV3+, U-Net, and Mask R-CNN trained on
+TACO masks. As foundation baselines we evaluate CLIP (classification), Grounding
+DINO (detection), and SAM (segmentation) zero-shot.
+
+\subsection{Stage 2: Unified Florence-2 with LoRA}
+We fine-tune Florence-2-large with LoRA into a single model that performs all
+three tasks through task prompts: \texttt{<CAPTION>} for classification,
+\texttt{<OD>} for detection, and a referring-expression prompt for segmentation,
+with segmentation polygons quantized to location tokens. Training data combine
+TrashNet classification, TACO detection, and TACO polygon segmentation into one
+shuffled multi-task corpus. LoRA is applied to the attention projection layers
+(rank 16, alpha 32, dropout 0.05) and trained for three epochs. Crucially, none
+of the cross-domain test datasets are used in training.
+
+\subsection{Inference Methods for the Unified Model}
+Because the evaluation metrics are class-agnostic, we use the Florence-2 head best
+matched to each metric, applied uniformly across all datasets of a task. For
+detection we use the class-agnostic region-proposal head, which recovers recall
+on dense scenes where the labelled detector under-detects small objects. For
+segmentation we use a multi-instance cascade: phrase-grounding locates every
+waste instance, per-region segmentation produces a mask for each, and the masks
+are unioned into a binary foreground.
+
+\section{Experimental Setup}
+\textbf{Datasets.} Classification: TrashNet (in-domain), RealWaste and WaRP-C
+(cross-domain). Detection: TACO (in-domain), Trash-ICRA19, ZeroWaste-f, and WaRP-D
+(cross-domain). Segmentation: TACO masks (in-domain), DWSD and ZeroWaste-f
+(cross-domain). The five cross-domain domains are landfill, underwater,
+recycling-plant, cluttered-conveyor, and dense-scene waste.
+
+\textbf{Metrics.} Classification uses accuracy and macro-F1. Detection uses
+class-agnostic precision, recall, and F1 at an intersection-over-union (IoU)
+threshold of 0.5. Segmentation uses binary mean IoU (mIoU). All models within a
+task are scored with the identical metric to ensure a fair comparison.
+
+\textbf{Implementation.} All experiments run on an NVIDIA A100-40GB GPU with
+PyTorch 2.0.1, Transformers 4.40.2, and PEFT 0.10.0. Cross-domain datasets are
+evaluated on their held-out test splits only.
+
+\section{Results}
+Tables~\ref{tab:cls}--\ref{tab:seg} report all models on all datasets. Bold marks
+the best in each column.
+
+\begin{table}[htbp]
+\caption{Classification: Accuracy \% (macro-F1)}
+\label{tab:cls}
+\begin{center}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+\textbf{Model} & \textbf{Regime} & \textbf{TrashNet} & \textbf{RealWaste} & \textbf{WaRP-C} \\
+ & & \textit{(in)} & \textit{(cross)} & \textit{(cross)} \\
+\midrule
+ViT-Base & TS & \textbf{96.44} & 39.98 & 21.99 \\
+EfficientNet-B0 & TS & 89.53 & 32.89 & 46.29 \\
+ResNet-50 & TS & 80.83 & 17.85 & 17.28 \\
+CLIP ViT-B/16 & FM & 67.83 & 42.68 & 43.07 \\
+\textbf{Florence-2 FT} & UNI & 85.24 & \textbf{56.68} & \textbf{60.35} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\footnotesize TS: task-specific; FM: foundation (zero-shot); UNI: unified.
+\end{table}
+
+\begin{table}[htbp]
+\caption{Detection: F1 at IoU 0.5 (class-agnostic)}
+\label{tab:det}
+\begin{center}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+\textbf{Model} & \textbf{Reg.} & \textbf{TACO} & \textbf{ICRA19} & \textbf{ZeroW.} & \textbf{WaRP-D} \\
+ & & \textit{(in)} & \textit{(cr)} & \textit{(cr)} & \textit{(cr)} \\
+\midrule
+YOLOv8m & TS & \textbf{0.641} & 0.139 & 0.220 & 0.184 \\
+Faster R-CNN & TS & 0.195 & 0.137 & 0.146 & 0.123 \\
+Grounding DINO & FM & 0.253 & 0.372 & 0.208 & 0.192 \\
+\textbf{Florence-2 FT} & UNI & 0.366 & \textbf{0.505} & \textbf{0.272} & \textbf{0.281} \\
+\bottomrule
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[htbp]
+\caption{Segmentation: Binary mIoU}
+\label{tab:seg}
+\begin{center}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+\textbf{Model} & \textbf{Regime} & \textbf{TACO} & \textbf{DWSD} & \textbf{ZeroWaste-f} \\
+ & & \textit{(in)} & \textit{(cross)} & \textit{(cross)} \\
+\midrule
+DeepLabV3+ & TS & \textbf{0.454} & 0.048 & 0.132 \\
+U-Net & TS & 0.329 & 0.063 & 0.131 \\
+Mask R-CNN & TS & 0.289 & 0.084 & 0.169 \\
+SAM ViT-H & FM & 0.038 & 0.102 & 0.027 \\
+\textbf{Florence-2 FT} & UNI & 0.222 & \textbf{0.180} & 0.160$^{\mathrm{a}}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+\footnotesize $^{\mathrm{a}}$On ZeroWaste-f, Florence 0.160 vs Mask R-CNN 0.169 is
+a statistical tie (paired Wilcoxon $p{=}0.98$; bootstrap 95\% CI of the per-image
+difference includes 0, $n{=}929$).
+\end{table}
+
+\subsection{Classification}
+ViT-Base attains the highest in-domain accuracy (96.44\%) but drops to 39.98\% on
+RealWaste and 21.99\% on WaRP-C. The unified Florence-2 attains the best
+cross-domain accuracy on both shifted sets (56.68\% and 60.35\%), exceeding the
+strongest specialist and the CLIP foundation baseline. Fig.~\ref{fig:cls}
+visualizes this: the specialist (ViT) peaks in-domain and collapses under shift,
+while the unified model stays robust.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\columnwidth, height=4.6cm,
+    ybar, bar width=5pt,
+    enlarge x limits=0.25,
+    ymin=0, ymax=100,
+    ylabel={Accuracy (\%)}, ylabel near ticks,
+    symbolic x coords={TrashNet (in), RealWaste (cross), WaRP-C (cross)},
+    xtick=data, x tick label style={font=\scriptsize, align=center},
+    ytick={0,25,50,75,100},
+    legend style={at={(0.5,1.03)}, anchor=south, legend columns=3,
+                  font=\scriptsize, draw=none},
+    tick label style={font=\scriptsize},
+    label style={font=\scriptsize},
+]
+\addplot+[ybar, fill=red!55, draw=red!70] coordinates
+  {(TrashNet (in),96.44) (RealWaste (cross),39.98) (WaRP-C (cross),21.99)};
+\addplot+[ybar, fill=blue!45, draw=blue!70] coordinates
+  {(TrashNet (in),67.83) (RealWaste (cross),42.68) (WaRP-C (cross),43.07)};
+\addplot+[ybar, fill=green!55!black, draw=green!40!black] coordinates
+  {(TrashNet (in),85.24) (RealWaste (cross),56.68) (WaRP-C (cross),60.35)};
+\legend{ViT-Base (TS), CLIP (FM), Florence-2 FT (UNI)}
+\end{axis}
+\end{tikzpicture}
+\caption{Classification accuracy in-domain vs cross-domain. The task-specific
+ViT-Base peaks in-domain but collapses under domain shift, whereas the unified
+Florence-2 is the most robust across the field datasets.}
+\label{fig:cls}
+\end{figure}
+
+\subsection{Detection}
+YOLOv8m leads in-domain (0.641 F1) but falls to 0.13--0.22 cross-domain --- a
+relative drop of roughly 65--78\%. The contrast is sharpest on underwater debris
+(Trash-ICRA19), where YOLOv8 reaches only 0.139 F1 while the open-vocabulary
+Grounding DINO, which was never trained on TACO, reaches 0.372; broad pre-training
+clearly helps when the domain shifts. The unified model is the best on all three
+cross-domain detection sets (0.505, 0.272, 0.281), combining the foundation
+models' robustness with task-adapted accuracy.
+
+\subsection{Segmentation}
+Specialist segmenters collapse cross-domain; DeepLabV3+ falls from 0.454 to 0.048
+on DWSD. The unified model wins DWSD (0.180) and is statistically tied with the
+best specialist, Mask R-CNN, on ZeroWaste-f (0.160 vs 0.169). A paired Wilcoxon
+signed-rank test gives $p{=}0.98$ and the bootstrap 95\% confidence interval of
+the per-image difference includes zero, so the two are indistinguishable.
+
+\subsection{Cross-Domain Summary}
+Aggregating across the seven cross-domain benchmarks, the unified Florence-2 is
+the best, or statistically tied for best, on all seven: it wins all
+classification and detection benchmarks and DWSD segmentation, and ties on
+ZeroWaste-f segmentation. Notably, ZeroWaste-f is the one cross-domain benchmark
+where a specialist does not collapse (Mask R-CNN 0.169 vs 0.084 on DWSD), which
+makes the parity there meaningful rather than a low-signal corner case.
+
+\section{Analysis and Discussion}
+\textbf{Accuracy-generalization trade-off.} Specialists peak in-domain but lose
+56--74 accuracy points (classification) and most of their detection and
+segmentation quality under shift. The unified model gives up a little in-domain
+accuracy for broadly stable transfer, which is the property that matters for
+deployment. Fig.~\ref{fig:retain} makes this concrete: we define cross-domain
+\emph{retention} as the mean cross-domain score divided by the in-domain score.
+The best specialist per task retains only 20--32\% of its in-domain quality,
+whereas the unified model retains 69--96\%.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\columnwidth, height=4.4cm,
+    ybar, bar width=9pt,
+    enlarge x limits=0.3,
+    ymin=0, ymax=110,
+    ylabel={Cross-domain retention (\%)}, ylabel near ticks,
+    symbolic x coords={Classification, Detection, Segmentation},
+    xtick=data, x tick label style={font=\scriptsize},
+    ytick={0,25,50,75,100},
+    nodes near coords, nodes near coords style={font=\tiny},
+    legend style={at={(0.5,1.03)}, anchor=south, legend columns=2,
+                  font=\scriptsize, draw=none},
+    tick label style={font=\scriptsize}, label style={font=\scriptsize},
+]
+\addplot+[ybar, fill=red!55, draw=red!70] coordinates
+  {(Classification,32) (Detection,28) (Segmentation,20)};
+\addplot+[ybar, fill=green!55!black, draw=green!40!black] coordinates
+  {(Classification,69) (Detection,96) (Segmentation,77)};
+\legend{Best specialist, Florence-2 FT (unified)}
+\end{axis}
+\end{tikzpicture}
+\caption{Cross-domain retention (mean cross-domain score / in-domain score). The
+unified foundation model retains far more of its quality under domain shift than
+the best task-specific model in every task.}
+\label{fig:retain}
+\end{figure}
+
+\textbf{One model versus many.} Deploying a separate specialist per task is costly
+in practice: holding several models in memory multiplies GPU footprint, routing
+inputs between them adds latency and orchestration logic, and each model carries
+its own training and maintenance pipeline. Our study spans nine task-specific and
+foundation baselines; a production system built from them would need to load and
+maintain several distinct networks. The unified model replaces that stack with a
+single backbone and one lightweight LoRA adapter of only a few tens of megabytes,
+serving classification, detection, and segmentation by changing the text prompt
+rather than the model. This consolidation --- many models reduced to one --- is the
+practical payoff of the unified design and is what makes it deployable at scale.
+
+\textbf{Why foundation models generalize.} The specialist collapse and the
+unified model's robustness follow from how each was trained. A specialist learns
+features tuned to one curated distribution; when the test distribution shifts ---
+new backgrounds, lighting, object scales, and clutter --- those features no longer
+apply, and in-domain accuracies of 80--96\% fall to as low as 17--40\%, a
+relative drop of roughly 58--80\%. Detection and segmentation specialists show the
+same pattern: YOLOv8 falls from 0.641 to 0.14--0.22 F1, and DeepLabV3+ from 0.454
+to 0.05--0.13 mIoU. Zero-shot foundation models resist this collapse because they
+were pre-trained on large, diverse corpora, but their in-domain ceiling is lower
+(for instance CLIP reaches only 67.8\% on TrashNet). The unified Florence-2
+combines both strengths: the LoRA adapter specialises a broad vision-language
+representation to waste while leaving its general robustness intact, so the model
+is rarely the single best in-domain yet is consistently strong across unseen
+domains.
+
+\textbf{Practical recommendations.} Two guidelines follow for real-world systems.
+When the deployment environment is controlled and matches the training data ---
+for example a sorting line with fixed lighting and a known object set --- a
+task-specific model gives the highest accuracy at low inference cost. When the
+environment is open and variable, as in street-level collection or surveillance,
+the unified foundation model is preferable: it degrades far less under shift and
+covers all three tasks from one model. In short, expected field conditions, not
+in-domain benchmark accuracy, should drive model choice for waste vision.
+
+\section{Demo and Deployment}
+To make the operational benefit concrete and demonstrate single-model deployment,
+we built ``Playground,'' a web application (FastAPI backend, React frontend) that
+serves the unified Florence-2 model for all supported tasks through one inference
+endpoint. A user uploads a field image and selects a task group ---
+captioning/classification, detection, grounding, segmentation, OCR, or a cascaded
+multi-instance mode --- and the same model and adapter produce the output, with no
+model switching or per-task pipeline. The interface reports inference latency and
+the raw structured output and supports exporting the annotated result. This
+illustrates that the unified model is directly deployable as one service, in
+contrast to orchestrating several task-specific models.
+
+Figs.~\ref{fig:pg-cls}--\ref{fig:pg-seg} show the unified model performing
+classification, detection, and segmentation on the same cluttered, street-level
+waste image, each produced by the same model and adapter.
+
+\section{Limitations}
+Florence-2 segmentation emits polygons as discrete tokens and is therefore lossy
+on dense scenes, which is why a strong instance segmenter remains competitive on
+ZeroWaste-f. Several cross-domain baselines (RealWaste, Trash-ICRA19, DWSD) are
+carried from a prior matched evaluation, and the in-domain detection F1 for
+specialists is reported on the same protocol. Finally, results are from single
+training runs; multiple seeds would tighten the cross-domain estimates.
+
+\section{Conclusion}
+We studied the lab-to-field gap in waste vision across classification, detection,
+and segmentation, comparing task-specific and foundation models. A single
+Florence-2 model fine-tuned with lightweight low-rank adapters is the best, or
+statistically tied for best, on all seven cross-domain benchmarks across five
+domains, while replacing many specialist pipelines with one model. Specialists
+peak in-domain but lose 58 to 80 percent of their quality under domain shift,
+whereas the unified model retains far more and remains preferable wherever
+deployment conditions vary. Specialists remain the better choice only when the
+deployment environment exactly matches training. For real-world waste systems,
+where input conditions vary, a unified foundation model with lightweight
+fine-tuning is the more robust and more practical choice.
+
+\begin{thebibliography}{00}
+\bibitem{florence2} B. Xiao, H. Wu, W. Xu, et al., ``Florence-2: Advancing a unified representation for a variety of vision tasks,'' in \textit{Proc. CVPR}, 2024.
+\bibitem{lora} E. J. Hu, Y. Shen, P. Wallis, et al., ``LoRA: Low-rank adaptation of large language models,'' in \textit{Proc. ICLR}, 2022.
+\bibitem{peft} S. Mangrulkar, S. Gugger, L. Debut, et al., ``PEFT: State-of-the-art parameter-efficient fine-tuning methods,'' Hugging Face, 2022.
+\bibitem{taco} P. F. Proen\c{c}a and P. Sim\~oes, ``TACO: Trash annotations in context for litter detection,'' arXiv:2003.06975, 2020.
+\bibitem{trashnet} M. Yang and G. Thung, ``Classification of trash for recyclability status,'' Stanford CS229 Project, 2016.
+\bibitem{realwaste} S. Single, S. Iranmanesh, and R. Raval, ``RealWaste: A novel real-life data set for landfill waste classification using deep learning,'' \textit{Information}, 2023.
+\bibitem{icra19} M. Fulton, J. Hong, M. J. Islam, and J. Sattar, ``Robotic detection of marine litter using deep visual detection models,'' in \textit{Proc. ICRA}, 2019.
+\bibitem{zerowaste} D. Bashkirova, M. Abdelfattah, Z. Zhu, et al., ``ZeroWaste dataset: Towards deformable object segmentation in cluttered scenes,'' in \textit{Proc. CVPR}, 2022.
+\bibitem{warp} D. Yudkin, et al., ``WaRP: Waste recycling plant dataset for detection, classification, and segmentation,'' 2022.
+\bibitem{clip} A. Radford, J. W. Kim, C. Hallacy, et al., ``Learning transferable visual models from natural language supervision,'' in \textit{Proc. ICML}, 2021.
+\bibitem{gdino} S. Liu, Z. Zeng, T. Ren, et al., ``Grounding DINO: Marrying DINO with grounded pre-training for open-set object detection,'' in \textit{Proc. ECCV}, 2024.
+\bibitem{sam} A. Kirillov, E. Mintun, N. Ravi, et al., ``Segment anything,'' in \textit{Proc. ICCV}, 2023.
+\bibitem{vit} A. Dosovitskiy, L. Beyer, A. Kolesnikov, et al., ``An image is worth 16x16 words: Transformers for image recognition at scale,'' in \textit{Proc. ICLR}, 2021.
+\bibitem{resnet} K. He, X. Zhang, S. Ren, and J. Sun, ``Deep residual learning for image recognition,'' in \textit{Proc. CVPR}, 2016.
+\bibitem{efficientnet} M. Tan and Q. Le, ``EfficientNet: Rethinking model scaling for convolutional neural networks,'' in \textit{Proc. ICML}, 2019.
+\bibitem{yolov8} G. Jocher, A. Chaurasia, and J. Qiu, ``Ultralytics YOLOv8,'' 2023.
+\bibitem{fasterrcnn} S. Ren, K. He, R. Girshick, and J. Sun, ``Faster R-CNN: Towards real-time object detection with region proposal networks,'' in \textit{Proc. NeurIPS}, 2015.
+\bibitem{unet} O. Ronneberger, P. Fischer, and T. Brox, ``U-Net: Convolutional networks for biomedical image segmentation,'' in \textit{Proc. MICCAI}, 2015.
+\bibitem{deeplab} L.-C. Chen, Y. Zhu, G. Papandreou, F. Schroff, and H. Adam, ``Encoder-decoder with atrous separable convolution for semantic image segmentation,'' in \textit{Proc. ECCV}, 2018.
+\bibitem{maskrcnn} K. He, G. Gkioxari, P. Doll\'ar, and R. Girshick, ``Mask R-CNN,'' in \textit{Proc. ICCV}, 2017.
+\bibitem{babe} A. Bab\'e, R. Cuingnet, M. Scuturici, and S. Miguet, ``Generalization abilities of foundation models in waste classification,'' 2023.
+\end{thebibliography}
+
+%% ----------------------------------------------------------------------------
+%% Qualitative demo figures, placed at the end so each is large and readable.
+%% Upload these three screenshots to Overleaf (exported from the Playground),
+%% all on the SAME field image:
+%%   playground_classification.png  -- classification / caption output
+%%   playground_detection.png       -- detection output
+%%   playground_segmentation.png    -- segmentation output
+%% Until uploaded, comment out the three figures below so the paper compiles.
+%% ----------------------------------------------------------------------------
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{playground_classification.png}
+\caption{Classification (caption) of a cluttered street-level field waste image by
+the unified Florence-2 model in the Playground.}
+\label{fig:pg-cls}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{playground_detection.png}
+\caption{Open-vocabulary detection on the same field image, produced by the same
+unified model (no model switching).}
+\label{fig:pg-det}
+\end{figure*}
+
+\begin{figure*}[t]
+\centering
+\includegraphics[width=\textwidth]{playground_segmentation.png}
+\caption{Multi-instance segmentation on the same field image via the
+grounding-then-segment cascade, produced by the same unified model.}
+\label{fig:pg-seg}
+\end{figure*}
+
+\end{document}

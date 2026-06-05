@@ -36,7 +36,8 @@ Note: RealWaste evaluation uses the TrashNet-compatible mapped classes. Unmapped
 | Classification | RealWaste | Accuracy 0.5668 | Macro F1 0.4769 | - |
 | Detection | TACO | Precision 0.5288 | Recall 0.2795 | F1 0.3657 |
 | Detection | Trash-ICRA19 | Precision 0.5254 | Recall 0.4859 | F1 0.5049 |
-| Segmentation | TACO | mIoU 0.2126 | Pixel Accuracy 0.9134 | - |
+| Segmentation | TACO | mIoU 0.2223 | Pixel Accuracy 0.9180 | - |
+| Segmentation | DWSD | mIoU 0.2214 | Pixel Accuracy 0.6791 | - |
 
 ## Comparison Against Stage 1 Best Baselines
 
@@ -46,7 +47,8 @@ Note: RealWaste evaluation uses the TrashNet-compatible mapped classes. Unmapped
 | Classification, cross-domain | CLIP | 42.68% accuracy | 56.68% accuracy | +14.00 pts |
 | Detection, in-domain | YOLOv8 | 64.10% F1 | 36.57% F1 | -27.53 pts |
 | Detection, cross-domain | Grounding DINO | 37.20% F1 | 50.49% F1 | +13.29 pts |
-| Segmentation, in-domain | DeepLabV3+ | 0.4541 mIoU | 0.2126 mIoU | -0.2415 |
+| Segmentation, in-domain | DeepLabV3+ | 0.4541 mIoU | 0.2223 mIoU | -0.2318 |
+| Segmentation, cross-domain | SAM | 0.1023 mIoU | 0.2214 mIoU | +0.1191 |
 
 ## Fine-Tuned vs Zero-Shot Florence-2
 
@@ -56,7 +58,8 @@ Note: RealWaste evaluation uses the TrashNet-compatible mapped classes. Unmapped
 | Classification | RealWaste accuracy | 0.3036 | 0.5668 | +0.2632 |
 | Detection | TACO F1 | 0.2453 | 0.3657 | +0.1204 |
 | Detection | Trash-ICRA19 F1 | 0.4203 | 0.5049 | +0.0846 |
-| Segmentation | TACO mIoU | 0.1773 | 0.2126 | +0.0353 |
+| Segmentation | TACO mIoU (in-domain) | 0.1773 | 0.2223 | +0.0450 |
+| Segmentation | DWSD mIoU (cross-domain) | 0.1207 | 0.2214 | +0.1007 (+83.4%) |
 
 Fine-tuning improves every measured task. The largest gains are in classification, where the model learns the closed-set waste labels instead of producing generic captions or `unknown` outputs.
 
@@ -109,11 +112,12 @@ This is one of the strongest Stage 2 findings: a single unified model can preser
 
 | Dataset | Evaluated | mIoU | Pixel Accuracy |
 |---|---:|---:|---:|
-| TACO segmentation | 150 | 0.2126 | 0.9134 |
+| TACO segmentation (in-domain)  | 150 | 0.2223 | 0.9180 |
+| DWSD segmentation (cross-domain) | 144 | 0.2214 | 0.6791 |
 
 ### Segmentation Insight
 
-Fine-tuning improves TACO segmentation from 0.1773 mIoU to 0.2126 mIoU, and pixel accuracy rises to 0.9134. However, segmentation remains below the best specialist Stage 1 model, DeepLabV3+. Florence-2 outputs polygon coordinates through text generation, so it is less precise than a dedicated segmentation decoder.
+Fine-tuning improves TACO segmentation from 0.1773 mIoU to 0.2223 mIoU and pixel accuracy from 0.7902 to 0.9180. The cross-domain result is more striking: on DWSD the fine-tuned model reaches 0.2214 mIoU — essentially identical to its in-domain mIoU (0.2223), with a difference of only 0.0009. Florence-2's polygon-token segmentation therefore transfers across waste domains almost without degradation. The cross-domain DWSD mIoU is 2.2× SAM's zero-shot baseline (0.1023) and 2.6× the best Stage 1 specialist Mask R-CNN (0.0842). Fine-tuned Florence-2 still trails the in-domain specialist DeepLabV3+ on TACO (0.4541 vs 0.2223), but DeepLabV3+ collapses to 0.0483 on DWSD — exactly the lab-to-field robustness gap a foundation model with LoRA fine-tuning is meant to close.
 
 ## Key Takeaways
 

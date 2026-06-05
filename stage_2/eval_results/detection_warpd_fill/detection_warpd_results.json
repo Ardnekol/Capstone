@@ -1,0 +1,16 @@
+{
+  "faster_rcnn": {
+    "precision": 0.085,
+    "recall": 0.2237,
+    "f1": 0.1232,
+    "tp": 347,
+    "fp": 3736,
+    "fn": 1204,
+    "evaluated": 522,
+    "regime": "task-specific"
+  },
+  "_meta": {
+    "florence_det_method": "od",
+    "n_images": 522
+  }
+}

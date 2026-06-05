@@ -1,0 +1,46 @@
+{
+  "florence2_ft": {
+    "dataset": "WaRP-C",
+    "n": 230,
+    "accuracy": 0.4174,
+    "macro_f1": 0.3964,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "glass": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "metal": {
+        "precision": 0.8696,
+        "recall": 0.4,
+        "f1": 0.5479
+      },
+      "paper": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "plastic": {
+        "precision": 0.7103,
+        "recall": 0.5846,
+        "f1": 0.6414
+      },
+      "trash": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      },
+      "unknown": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "regime": "unified-ft"
+  }
+}

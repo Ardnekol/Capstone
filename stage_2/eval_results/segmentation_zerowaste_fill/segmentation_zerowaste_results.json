@@ -1,0 +1,14 @@
+{
+  "unet": {
+    "mIoU": 0.1311,
+    "pixel_acc": 0.7816,
+    "evaluated": 929,
+    "regime": "task-specific"
+  },
+  "maskrcnn": {
+    "mIoU": 0.1687,
+    "pixel_acc": 0.7392,
+    "evaluated": 929,
+    "regime": "task-specific"
+  }
+}

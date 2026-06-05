@@ -1,5 +1,11 @@
 # Large datasets (too big for GitHub)
 datasets/
+stage_1/segmentation/data/
+
+# YOLO dataset images (training images, not code)
+YOLO/garbage_best.v1i.yolov8/train/
+YOLO/garbage_best.v1i.yolov8/valid/
+YOLO/garbage_best.v1i.yolov8/test/
 
 # Virtual environments
 .venv/
@@ -39,3 +45,13 @@ Garbage_detection_using_surveillance/runs/
 
 # CCTV surveillance dataset images (3.2GB, too large for GitHub)
 Garbage_detection_using_surveillance/yolo_data/
+
+# Untracked LoRA model weights (large binaries; main unified model is tracked)
+stage_2/finetuned/florence2_unified_multitask_lora_v2/
+stage_2/finetuned/florence2_cls_only_lora/
+stage_2/finetuned/florence2_det_only_lora/
+stage_2/finetuned/florence2_seg_only_lora/
+
+# Node modules and frontend build artifacts
+node_modules/
+Playground/frontend/dist/

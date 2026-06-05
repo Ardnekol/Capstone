@@ -1,0 +1,18 @@
+{
+  "model_id": "finetuned/florence2_unified_multitask_lora",
+  "timestamp": "20260520_161906",
+  "device": "cuda:0",
+  "max_images": 0,
+  "segmentation_taco": {
+    "dataset": "TACO Seg (in-domain)",
+    "evaluated": 150,
+    "mean_iou": 0.2223,
+    "pixel_accuracy": 0.918
+  },
+  "segmentation_dwsd": {
+    "dataset": "DWSD (cross-domain)",
+    "evaluated": 144,
+    "mean_iou": 0.0,
+    "pixel_accuracy": 0.685
+  }
+}

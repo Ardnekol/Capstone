@@ -1,0 +1,20 @@
+{
+  "deeplabv3plus": {
+    "mIoU": 0.1324,
+    "pixel_acc": 0.7672,
+    "evaluated": 929,
+    "regime": "task-specific"
+  },
+  "sam": {
+    "mIoU": 0.0268,
+    "pixel_acc": 0.5327,
+    "evaluated": 929,
+    "regime": "foundation"
+  },
+  "florence2_ft": {
+    "mIoU": 0.1362,
+    "pixel_acc": 0.6746,
+    "evaluated": 929,
+    "regime": "unified-ft"
+  }
+}

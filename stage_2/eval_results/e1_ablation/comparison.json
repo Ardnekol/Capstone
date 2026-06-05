@@ -1,0 +1,162 @@
+{
+  "models": [
+    {
+      "dir": "florence2_cls_only_lora",
+      "label": "cls-only"
+    },
+    {
+      "dir": "florence2_det_only_lora",
+      "label": "det-only"
+    },
+    {
+      "dir": "florence2_unified_multitask_lora",
+      "label": "unified"
+    }
+  ],
+  "rows": [
+    {
+      "row": "TrashNet cls (in-domain) \u2014 accuracy",
+      "source": "main",
+      "metric_key": "accuracy",
+      "section": "classification_trashnet",
+      "values": {
+        "cls-only": 0.8567,
+        "det-only": 0.4377,
+        "unified": 0.848
+      },
+      "best": "cls-only"
+    },
+    {
+      "row": "TrashNet cls (in-domain) \u2014 macro F1",
+      "source": "main",
+      "metric_key": "macro_f1",
+      "section": "classification_trashnet",
+      "values": {
+        "cls-only": 0.7191,
+        "det-only": 0.383,
+        "unified": 0.6941
+      },
+      "best": "cls-only"
+    },
+    {
+      "row": "RealWaste cls (cross-domain) \u2014 accuracy",
+      "source": "main",
+      "metric_key": "accuracy",
+      "section": "classification_realwaste",
+      "values": {
+        "cls-only": 0.5944,
+        "det-only": 0.3953,
+        "unified": 0.5838
+      },
+      "best": "cls-only"
+    },
+    {
+      "row": "RealWaste cls (cross-domain) \u2014 macro F1",
+      "source": "main",
+      "metric_key": "macro_f1",
+      "section": "classification_realwaste",
+      "values": {
+        "cls-only": 0.5293,
+        "det-only": 0.3452,
+        "unified": 0.4881
+      },
+      "best": "cls-only"
+    },
+    {
+      "row": "TACO det (in-domain) \u2014 F1",
+      "source": "main",
+      "metric_key": "f1",
+      "section": "detection_taco",
+      "values": {
+        "cls-only": 0.2409,
+        "det-only": 0.3469,
+        "unified": 0.3657
+      },
+      "best": "unified"
+    },
+    {
+      "row": "TACO det (in-domain) \u2014 precision",
+      "source": "main",
+      "metric_key": "precision",
+      "section": "detection_taco",
+      "values": {
+        "cls-only": 0.3805,
+        "det-only": 0.5062,
+        "unified": 0.5288
+      },
+      "best": "unified"
+    },
+    {
+      "row": "TACO det (in-domain) \u2014 recall",
+      "source": "main",
+      "metric_key": "recall",
+      "section": "detection_taco",
+      "values": {
+        "cls-only": 0.1762,
+        "det-only": 0.2638,
+        "unified": 0.2795
+      },
+      "best": "unified"
+    },
+    {
+      "row": "ICRA19 det (cross-domain) \u2014 F1",
+      "source": "main",
+      "metric_key": "f1",
+      "section": "detection_icra19",
+      "values": {
+        "cls-only": 0.4145,
+        "det-only": 0.5886,
+        "unified": 0.5049
+      },
+      "best": "det-only"
+    },
+    {
+      "row": "TACO seg (in-domain) \u2014 mIoU",
+      "source": "main",
+      "metric_key": "mean_iou",
+      "section": "segmentation_taco",
+      "values": {
+        "cls-only": 0.1492,
+        "det-only": 0.3237,
+        "unified": 0.2223
+      },
+      "best": "det-only"
+    },
+    {
+      "row": "TACO seg (in-domain) \u2014 pixel acc",
+      "source": "main",
+      "metric_key": "pixel_accuracy",
+      "section": "segmentation_taco",
+      "values": {
+        "cls-only": 0.7295,
+        "det-only": 0.8868,
+        "unified": 0.918
+      },
+      "best": "unified"
+    },
+    {
+      "row": "DWSD seg (cross-domain) \u2014 mIoU",
+      "source": "dwsd",
+      "metric_key": "mean_iou",
+      "section": "segmentation_dwsd",
+      "values": {
+        "cls-only": 0.2067,
+        "det-only": 0.2257,
+        "unified": 0.2214
+      },
+      "best": "det-only"
+    },
+    {
+      "row": "DWSD seg (cross-domain) \u2014 pixel acc",
+      "source": "dwsd",
+      "metric_key": "pixel_accuracy",
+      "section": "segmentation_dwsd",
+      "values": {
+        "cls-only": 0.5373,
+        "det-only": 0.5824,
+        "unified": 0.6791
+      },
+      "best": "unified"
+    }
+  ]
+}

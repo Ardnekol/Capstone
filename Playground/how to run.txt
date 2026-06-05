@@ -1,0 +1,76 @@
+Florence-2 Playground — How to Run
+=====================================
+
+REQUIREMENTS
+  - Python 3.10+  with pip
+  - Node.js 18+   with npm
+  - NVIDIA GPU    with >= 8 GB VRAM  (CPU works but inference is very slow)
+  - ~6-7 GB free disk space for model weights + dependencies
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ OPTION A — PRODUCTION  (one command)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Builds the frontend and starts a single server at http://localhost:7860
+that serves both the UI and the API.
+
+  cd Playground
+  pip install -r backend/requirements.txt
+  ./start.sh
+
+Open http://localhost:7860 in your browser.
+
+Environment overrides (optional):
+  PORT=9000 ./start.sh                    # run on a different port
+  MODEL_CACHE_DIR=/nvme/hf ./start.sh     # store model weights on fast disk
+  TORCH_DTYPE=bfloat16 ./start.sh         # bfloat16 (A100 / H100 recommended)
+  DEFAULT_MODEL=microsoft/Florence-2-base ./start.sh   # lighter model
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ OPTION B — DEVELOPMENT  (hot reload)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Run backend and frontend in separate terminals for fast iteration.
+
+  # Terminal 1 — Backend (API on port 8000)
+  cd Playground/backend
+  cp .env.example .env          # first time only
+  pip install -r requirements.txt
+  python3 main.py
+
+  # Terminal 2 — Frontend (Vite dev server on port 5173)
+  cd Playground/frontend
+  npm install                   # first time only
+  npm run dev
+
+Open http://localhost:5173. Vite proxies /api → localhost:8000 automatically.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ GPU SERVER NOTES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+• Florence-2-large needs ~3.5 GB VRAM in float16 (default on CUDA)
+• Florence-2-base  needs ~1.5 GB VRAM in float16
+• Model is downloaded from HuggingFace on first run (~1.5 GB for large)
+• To cache weights on a specific drive:
+    export MODEL_CACHE_DIR=/path/to/fast/disk
+• To run offline after first download:
+    export HF_HUB_OFFLINE=1
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ API ENDPOINTS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  GET  /api/health     — server status, GPU info, loaded models
+  GET  /api/tasks      — list of all 17 supported tasks
+  GET  /api/models     — available Florence-2 model variants
+  POST /api/infer      — run inference (multipart/form-data)
+
+Interactive API docs: http://localhost:7860/docs
+
+
+
+cd Playground
+pip install -r backend/requirements.txt
+./start.sh
+# → open http://localhost:7860

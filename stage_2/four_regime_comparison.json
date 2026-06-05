@@ -48,7 +48,7 @@
       "stage1_task_specific": {"model": "DeepLabV3+", "score": 0.4541},
       "stage1_foundation": {"model": "SAM", "score": 0.0380},
       "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": 0.1773},
-      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.2126},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.2223},
       "winner": "Stage 1 task-specific"
     },
     {
@@ -56,10 +56,10 @@
       "metric": "mIoU",
       "stage1_task_specific": {"model": "Mask R-CNN", "score": 0.0842},
       "stage1_foundation": {"model": "SAM", "score": 0.1023},
-      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": null},
-      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": null},
-      "winner": "Stage 1 foundation"
+      "stage2_zero_shot": {"model": "Florence-2-large-ft", "score": 0.1207},
+      "stage2_fine_tuned": {"model": "Florence-2 unified LoRA", "score": 0.2214},
+      "winner": "Stage 2 fine-tuned"
     }
   ],
-  "conclusion": "Stage 1 task-specific models win in-domain, while Stage 2 fine-tuned Florence-2 gives the best unified cross-domain classification and detection results."
+  "conclusion": "Stage 1 task-specific models sweep in-domain (3 wins); Stage 2 fine-tuned Florence-2 sweeps cross-domain (3 wins: classification, detection, and segmentation). Stage 2 cross-domain segmentation (0.2214 mIoU on DWSD) is essentially identical to its in-domain segmentation (0.2223 mIoU on TACO), indicating Florence-2's polygon-token segmentation transfers across waste domains with negligible degradation."
 }

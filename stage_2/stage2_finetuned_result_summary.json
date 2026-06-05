@@ -63,8 +63,13 @@
   "segmentation": {
     "taco_in_domain": {
       "evaluated": 150,
-      "mean_iou": 0.2126,
-      "pixel_accuracy": 0.9134
+      "mean_iou": 0.2223,
+      "pixel_accuracy": 0.9180
+    },
+    "dwsd_cross_domain": {
+      "evaluated": 144,
+      "mean_iou": 0.2214,
+      "pixel_accuracy": 0.6791
     }
   },
   "zero_shot_comparison": {
@@ -72,7 +77,8 @@
     "realwaste_accuracy_delta": 0.2632,
     "taco_detection_f1_delta": 0.1204,
     "icra19_detection_f1_delta": 0.0846,
-    "taco_segmentation_miou_delta": 0.0353
+    "taco_segmentation_miou_delta": 0.0450,
+    "dwsd_segmentation_miou_delta": 0.1007
   },
   "stage1_comparison": [
     {
@@ -107,8 +113,15 @@
       "task": "segmentation_in_domain",
       "baseline_model": "DeepLabV3+",
       "baseline": "0.4541 mIoU",
-      "fine_tuned_florence2": "0.2126 mIoU",
-      "delta": "-0.2415"
+      "fine_tuned_florence2": "0.2223 mIoU",
+      "delta": "-0.2318"
+    },
+    {
+      "task": "segmentation_cross_domain",
+      "baseline_model": "SAM",
+      "baseline": "0.1023 mIoU",
+      "fine_tuned_florence2": "0.2214 mIoU",
+      "delta": "+0.1191"
     }
   ]
 }
