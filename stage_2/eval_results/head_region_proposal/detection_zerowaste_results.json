@@ -1,0 +1,16 @@
+{
+  "florence2_ft": {
+    "precision": 0.2306,
+    "recall": 0.326,
+    "f1": 0.2701,
+    "tp": 1655,
+    "fp": 5522,
+    "fn": 3422,
+    "evaluated": 929,
+    "regime": "unified-ft"
+  },
+  "_meta": {
+    "florence_det_method": "region_proposal",
+    "n_images": 929
+  }
+}

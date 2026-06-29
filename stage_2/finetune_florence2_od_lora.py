@@ -248,12 +248,18 @@ def main() -> None:
 
     ap.add_argument("--bf16", action="store_true", help="Use bf16 mixed precision (Ampere+)")
     ap.add_argument("--fp16", action="store_true", help="Use fp16 mixed precision")
+    ap.add_argument("--seed", type=int, default=42,
+                    help="Random seed (default 42 = original paper run). Set per run for multi-seed results.")
 
     args = ap.parse_args()
 
     # Import Trainer lazily so we can show a helpful error when transformers/peft versions are incompatible.
     try:
-        from transformers import Trainer, TrainingArguments  # noqa: WPS433
+        from transformers import Trainer, TrainingArguments, set_seed  # noqa: WPS433
+        # Seed everything (Python/NumPy/Torch) BEFORE model + LoRA init so the
+        # adapter's random initialization is reproducible and varies per seed.
+        set_seed(int(args.seed))
+        print(f"[seed] global seed set to {args.seed}")
     except Exception as e:  # pragma: no cover
         raise SystemExit(
             "Failed to import transformers Trainer. This is almost always a dependency mismatch.\n\n"
@@ -350,6 +356,8 @@ def main() -> None:
 
     training_args = TrainingArguments(
         output_dir=str(out_dir),
+        seed=int(args.seed),
+        data_seed=int(args.seed),
         per_device_train_batch_size=int(args.per_device_train_batch_size),
         gradient_accumulation_steps=int(args.gradient_accumulation_steps),
         learning_rate=float(args.learning_rate),
