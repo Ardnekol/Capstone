@@ -132,6 +132,34 @@ def load_warpd(root: Path) -> List[Tuple[Path, List[List[float]]]]:
     return out
 
 
+def load_icra19(root: Path) -> List[Tuple[Path, List[List[float]]]]:
+    """Trash-ICRA19 test split, PASCAL VOC XML. (rov/timestamp labels skipped.)"""
+    import xml.etree.ElementTree as ET
+    test = root / "trash_ICRA19" / "dataset" / "test"
+    if not test.exists():
+        test = root / "dataset" / "test"
+    out = []
+    for p in sorted(test.iterdir()):
+        if p.suffix.lower() not in (".jpg", ".jpeg", ".png"):
+            continue
+        xml = p.with_suffix(".xml")
+        if not xml.exists():
+            continue
+        boxes = []
+        for obj in ET.parse(str(xml)).getroot().findall("object"):
+            name = obj.find("name")
+            if name is not None and name.text.strip().lower() in ("rov", "timestamp"):
+                continue
+            bb = obj.find("bndbox")
+            if bb is None:
+                continue
+            boxes.append([float(bb.find("xmin").text), float(bb.find("ymin").text),
+                          float(bb.find("xmax").text), float(bb.find("ymax").text)])
+        if boxes:
+            out.append((p, boxes))
+    return out
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Regime predictors → each yields {img_path: [boxes]}
 # ──────────────────────────────────────────────────────────────────────────────
@@ -233,9 +261,10 @@ def aggregate(items, preds) -> Dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser(description="3-regime cross-domain detection")
-    ap.add_argument("--dataset", choices=["zerowaste", "warpd"], required=True)
+    ap.add_argument("--dataset", choices=["zerowaste", "warpd", "icra19"], required=True)
     ap.add_argument("--zerowaste-root", default="../../datasets/zerowaste-f")
     ap.add_argument("--warpd-root", default="../../datasets/WARP/Warp-D")
+    ap.add_argument("--icra19-root", default="../../datasets/detection/trash_icra19")
     ap.add_argument("--yolo", default="../../stage_1/detection/runs/detect/yolov8m_20251225_182218/weights/best.pt")
     ap.add_argument("--fasterrcnn", default="../../stage_1/detection/runs/fasterrcnn/fasterrcnn_20251225_235400/best.pth")
     ap.add_argument("--gdino", default="IDEA-Research/grounding-dino-base")
@@ -257,6 +286,9 @@ def main() -> None:
     if args.dataset == "zerowaste":
         items = load_zerowaste(Path(args.zerowaste_root).expanduser().resolve())
         ds_label = "ZeroWaste-f"
+    elif args.dataset == "icra19":
+        items = load_icra19(Path(args.icra19_root).expanduser().resolve())
+        ds_label = "Trash-ICRA19"
     else:
         items = load_warpd(Path(args.warpd_root).expanduser().resolve())
         ds_label = "WaRP-D"

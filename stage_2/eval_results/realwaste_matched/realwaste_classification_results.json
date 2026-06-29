@@ -1,0 +1,202 @@
+{
+  "vit_base": {
+    "dataset": "WaRP-C",
+    "n": 3587,
+    "accuracy": 0.5029,
+    "macro_f1": 0.4554,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.3722,
+        "recall": 0.5336,
+        "f1": 0.4385
+      },
+      "glass": {
+        "precision": 0.6582,
+        "recall": 0.3071,
+        "f1": 0.4188
+      },
+      "metal": {
+        "precision": 0.6889,
+        "recall": 0.6278,
+        "f1": 0.657
+      },
+      "paper": {
+        "precision": 0.3973,
+        "recall": 0.534,
+        "f1": 0.4556
+      },
+      "plastic": {
+        "precision": 0.5569,
+        "recall": 0.6591,
+        "f1": 0.6037
+      },
+      "trash": {
+        "precision": 0.2379,
+        "recall": 0.1192,
+        "f1": 0.1588
+      }
+    },
+    "regime": "task-specific"
+  },
+  "resnet50": {
+    "dataset": "WaRP-C",
+    "n": 3587,
+    "accuracy": 0.2342,
+    "macro_f1": 0.1825,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.1604,
+        "recall": 0.6464,
+        "f1": 0.257
+      },
+      "glass": {
+        "precision": 0.3182,
+        "recall": 0.0167,
+        "f1": 0.0317
+      },
+      "metal": {
+        "precision": 0.5974,
+        "recall": 0.4,
+        "f1": 0.4792
+      },
+      "paper": {
+        "precision": 0.1598,
+        "recall": 0.302,
+        "f1": 0.209
+      },
+      "plastic": {
+        "precision": 0.2918,
+        "recall": 0.0738,
+        "f1": 0.1179
+      },
+      "trash": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "regime": "task-specific"
+  },
+  "efficientnetb0": {
+    "dataset": "WaRP-C",
+    "n": 3587,
+    "accuracy": 0.4435,
+    "macro_f1": 0.3986,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.2544,
+        "recall": 0.5683,
+        "f1": 0.3514
+      },
+      "glass": {
+        "precision": 0.6,
+        "recall": 0.1357,
+        "f1": 0.2214
+      },
+      "metal": {
+        "precision": 0.5794,
+        "recall": 0.6468,
+        "f1": 0.6112
+      },
+      "paper": {
+        "precision": 0.4644,
+        "recall": 0.456,
+        "f1": 0.4601
+      },
+      "plastic": {
+        "precision": 0.5639,
+        "recall": 0.4788,
+        "f1": 0.5179
+      },
+      "trash": {
+        "precision": 0.2997,
+        "recall": 0.1859,
+        "f1": 0.2294
+      }
+    },
+    "regime": "task-specific"
+  },
+  "clip": {
+    "dataset": "WaRP-C",
+    "n": 3587,
+    "accuracy": 0.5802,
+    "macro_f1": 0.5208,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.5718,
+        "recall": 0.5098,
+        "f1": 0.539
+      },
+      "glass": {
+        "precision": 0.8237,
+        "recall": 0.5452,
+        "f1": 0.6562
+      },
+      "metal": {
+        "precision": 0.7941,
+        "recall": 0.4785,
+        "f1": 0.5972
+      },
+      "paper": {
+        "precision": 0.5211,
+        "recall": 0.94,
+        "f1": 0.6705
+      },
+      "plastic": {
+        "precision": 0.5111,
+        "recall": 0.8263,
+        "f1": 0.6315
+      },
+      "trash": {
+        "precision": 0.2581,
+        "recall": 0.0162,
+        "f1": 0.0304
+      }
+    },
+    "regime": "foundation"
+  },
+  "florence2_ft": {
+    "dataset": "WaRP-C",
+    "n": 3587,
+    "accuracy": 0.5829,
+    "macro_f1": 0.5686,
+    "per_class": {
+      "cardboard": {
+        "precision": 0.9828,
+        "recall": 0.2473,
+        "f1": 0.3951
+      },
+      "glass": {
+        "precision": 0.8656,
+        "recall": 0.7667,
+        "f1": 0.8131
+      },
+      "metal": {
+        "precision": 0.8306,
+        "recall": 0.5215,
+        "f1": 0.6407
+      },
+      "paper": {
+        "precision": 0.7003,
+        "recall": 0.916,
+        "f1": 0.7938
+      },
+      "plastic": {
+        "precision": 0.6774,
+        "recall": 0.848,
+        "f1": 0.7531
+      },
+      "trash": {
+        "precision": 0.8,
+        "recall": 0.0081,
+        "f1": 0.016
+      },
+      "unknown": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0
+      }
+    },
+    "regime": "unified-ft"
+  }
+}

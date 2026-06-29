@@ -1,0 +1,46 @@
+{
+  "yolov8": {
+    "precision": 0.3825,
+    "recall": 0.2361,
+    "f1": 0.292,
+    "tp": 327,
+    "fp": 528,
+    "fn": 1058,
+    "evaluated": 1120,
+    "regime": "task-specific"
+  },
+  "faster_rcnn": {
+    "precision": 0.2105,
+    "recall": 0.1596,
+    "f1": 0.1815,
+    "tp": 221,
+    "fp": 829,
+    "fn": 1164,
+    "evaluated": 1120,
+    "regime": "task-specific"
+  },
+  "grounding_dino": {
+    "precision": 0.4492,
+    "recall": 0.1913,
+    "f1": 0.2684,
+    "tp": 265,
+    "fp": 325,
+    "fn": 1120,
+    "evaluated": 1120,
+    "regime": "foundation"
+  },
+  "florence2_ft": {
+    "precision": 0.3294,
+    "recall": 0.4996,
+    "f1": 0.397,
+    "tp": 692,
+    "fp": 1409,
+    "fn": 693,
+    "evaluated": 1120,
+    "regime": "unified-ft"
+  },
+  "_meta": {
+    "florence_det_method": "region_proposal",
+    "n_images": 1120
+  }
+}

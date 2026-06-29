@@ -1,0 +1,16 @@
+{
+  "florence2_ft": {
+    "precision": 0.2774,
+    "recall": 0.1442,
+    "f1": 0.1897,
+    "tp": 732,
+    "fp": 1907,
+    "fn": 4345,
+    "evaluated": 929,
+    "regime": "unified-ft"
+  },
+  "_meta": {
+    "florence_det_method": "od",
+    "n_images": 929
+  }
+}
